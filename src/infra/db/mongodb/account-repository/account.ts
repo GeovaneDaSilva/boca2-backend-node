@@ -2,7 +2,7 @@ import { AccountModel } from '../../../../domain/entities/account'
 import { AddAccountModel } from '../../../../domain/useCases/account/add-account'
 import AccountSchema from '../mongo-schemas/account-schema'
 import { IAccountRepository } from '../../../../data/useCases/protocols/repositories/account-repository'
-import { IAccount } from '../../../../Iresponses/IAccount'
+import { IAccount } from '../../../../i-responses/IAccount'
 
 
 
