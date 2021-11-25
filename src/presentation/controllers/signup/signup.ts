@@ -10,7 +10,6 @@ import { badRequest, serverError, success } from '../../helpers/http-helper'
 import { HttpRequest, HttpResponse, Controller, EmailValidator } from './signup-protocols'
 import { GetAccounts } from '../../../domain/useCases/account/get-account'
 import { DeleteAccount } from '../../../domain/useCases/account/delete-account';
-import { IAccount } from '../../../interfaces-responses/IAccount';
 
 export class SignUpController implements Controller {
   constructor (private readonly emailValidator: EmailValidator,
@@ -247,7 +246,7 @@ export class DeleteAccountController implements Controller {
       
       const account_id = await httpRequest.params.account_id
       
-      const accountDb: IAccount | any = await this.iAccountRepository.getById(account_id)
+      const accountDb: any = await this.iAccountRepository.getById(account_id)
       
       if (!accountDb) {
         return badRequest(new ReadyExist(account_id))
