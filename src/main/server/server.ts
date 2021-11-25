@@ -3,7 +3,7 @@ import { MongooseHelper } from '../../infra/db/mongodb/mongoose-helper/mongoose-
 
 import { config as dotenv } from 'dotenv'
 
- dotenv()
+ // dotenv()
 // dbConnection()
 MongooseHelper.connect(process.env.MONGODB)
   .then(async () => {
