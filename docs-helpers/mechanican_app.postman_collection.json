@@ -1,0 +1,198 @@
+{
+	"info": {
+		"_postman_id": "dba3f4a3-d923-4fa5-8de9-8379bd72d347",
+		"name": "mechanican_app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PUT: SIGNUP",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjE0Y2FkOWM2ZDc0YTUxNGU0NDY0MzI5IiwiaWF0IjoxNjMyNDE1NjczLCJleHAiOjE2MzI0MTkyNzN9.tUVJ08YO-1oskYl-vZL6Qa7HPatmbkbr-TxZulWqkSI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Geovane2 \",\n    \"last_name\": \"Da SIlva 2\",\n    \"email\": \"geovaneartedesign@gmail.com\",\n    \"phone\": 7876574891,\n    \"password\": \"123456789\",\n    \"passwordConfirmation\":\"123456789\",\n    \"address\": {\n        \"street\": \"6917 NW 173rd Drive\",\n        \"country\": \"USA\",\n        \"state\": \"Florida\",\n        \"zipCode\": 33015,\n        \"apt\": 202\n    },\n    \"activated\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/account/token/id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"account",
+						"token",
+						"id"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST: SIGNUP",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Geovane2 \",\n    \"owner_id\": \"#003\",\n    \"last_name\": \"Da SIlva\",\n    \"email\": \"geovaneartedesign@gmail.com\",\n    \"phone\": 7876574891,\n    \"password\": \"123456789\",\n    \"passwordConfirmation\":\"123456789\",\n    \"address\": {\n        \"street\": \"6917 NW 173rd Drive\",\n        \"country\": \"USA\",\n        \"state\": \"Florida\",\n        \"zipCode\": 33015,\n        \"apt\": 202\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/signup",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST: LOGIN",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Geovane2 \",\n    \"last_name\": \"Da SIlva\",\n    \"email\": \"geovaneartedesign@gmail.com\",\n    \"phone\": 7876574891,\n    \"password\": \"123456789\",\n    \"passwordConfirmation\":\"123456789\",\n    \"address\": {\n        \"street\": \"6917 NW 173rd Drive\",\n        \"country\": \"USA\",\n        \"state\": \"Florida\",\n        \"zipCode\": 33015,\n        \"apt\": 202\n    },\n    \"activated\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET: ACTIVE ACCOUNT TOKEN URL",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "key",
+							"value": "Authorization",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "test_107297c57f38b2389ce9d8ab889533",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjE0MGQzMDU2YTE3N2MzZGU2YTVjZmYwIiwibmFtZSI6Ikdlb3ZhbmUgIiwiZW1haWwiOiJnZW92YW5lYXJ0ZWRlc2lnbkBnbWFpbC5jb20iLCJyb2xlIjoiVVNFUl9ST0xFIiwiZGF0ZSI6IjIwMjEtMDktMTRUMjA6NDQ6NDUuNTgzWiJ9LCJpYXQiOjE2MzE2NTIyODUsImV4cCI6MTYzMTY1NTg4NX0.vF7cXI3b0AVTWoUk04z2cd6nAm9VWYjeBNQoJ-R9hJM",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/account/activated/:token",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"account",
+						"activated",
+						":token"
+					],
+					"variable": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjE0MjliNzc0MDNmMWIyNzg2ZDQ1MTc2IiwiaWF0IjoxNjMyNDEzNTg2LCJleHAiOjE2MzI0MTcxODZ9.ZyQ73meHpU3DibI95FbyVWFehHd6cc9kIJ1OwJrU0Ks"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET: ACCOUNTS",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "key",
+							"value": "Authorization",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "test_107297c57f38b2389ce9d8ab889533",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjE0MGQzMDU2YTE3N2MzZGU2YTVjZmYwIiwibmFtZSI6Ikdlb3ZhbmUgIiwiZW1haWwiOiJnZW92YW5lYXJ0ZWRlc2lnbkBnbWFpbC5jb20iLCJyb2xlIjoiVVNFUl9ST0xFIiwiZGF0ZSI6IjIwMjEtMDktMTRUMjA6NDQ6NDUuNTgzWiJ9LCJpYXQiOjE2MzE2NTIyODUsImV4cCI6MTYzMTY1NTg4NX0.vF7cXI3b0AVTWoUk04z2cd6nAm9VWYjeBNQoJ-R9hJM",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/account/activated/6140d3056a177c3de6a5cff0/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjE0MGQzMDU2YTE3N2MzZGU2YTVjZmYwIiwibmFtZSI6Ikdlb3ZhbmUgIiwiZW1haWwiOiJnZW92YW5lYXJ0ZWRlc2lnbkBnbWFpbC5jb20iLCJyb2xlIjoiVVNFUl9ST0xFIiwiZGF0ZSI6IjIwMjEtMDktMTRUMjE6MjI6NDkuNDMzWiJ9LCJpYXQiOjE2MzE2NTQ1NjksImV4cCI6MTYzMTY1ODE2OX0.N8Tn-jQSeOpKP74Zw8LrtZKXOUbu3I6h53-SvUp_9yk",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"account",
+						"activated",
+						"6140d3056a177c3de6a5cff0",
+						"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjE0MGQzMDU2YTE3N2MzZGU2YTVjZmYwIiwibmFtZSI6Ikdlb3ZhbmUgIiwiZW1haWwiOiJnZW92YW5lYXJ0ZWRlc2lnbkBnbWFpbC5jb20iLCJyb2xlIjoiVVNFUl9ST0xFIiwiZGF0ZSI6IjIwMjEtMDktMTRUMjE6MjI6NDkuNDMzWiJ9LCJpYXQiOjE2MzE2NTQ1NjksImV4cCI6MTYzMTY1ODE2OX0.N8Tn-jQSeOpKP74Zw8LrtZKXOUbu3I6h53-SvUp_9yk"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
