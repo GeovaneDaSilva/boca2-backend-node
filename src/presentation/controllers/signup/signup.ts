@@ -10,7 +10,7 @@ import { badRequest, serverError, success } from '../../helpers/http-helper'
 import { HttpRequest, HttpResponse, Controller, EmailValidator } from './signup-protocols'
 import { GetAccounts } from '../../../domain/useCases/account/get-account'
 import { DeleteAccount } from '../../../domain/useCases/account/delete-account';
-import { IAccount } from '../../../Iresponses/IAccount';
+import { IAccount } from '../../../interfaces-responses/IAccount';
 
 export class SignUpController implements Controller {
   constructor (private readonly emailValidator: EmailValidator,

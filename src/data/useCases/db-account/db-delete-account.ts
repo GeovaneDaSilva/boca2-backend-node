@@ -1,7 +1,7 @@
 
 import { IAccountRepository } from '../protocols/repositories/account-repository'
 import { DeleteAccount } from '../../../domain/useCases/account/delete-account'
-import { IAccount } from '../../../Iresponses/IAccount'
+import { IAccount } from '../../../interfaces-responses/IAccount'
 
 export class DbDeleteAccount implements DeleteAccount {
   constructor (private readonly iAccountRepository: IAccountRepository) {

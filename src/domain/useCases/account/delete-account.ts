@@ -1,4 +1,4 @@
-import { IAccount } from '../../../i-responses/IAccount';
+import { IAccount } from '../../../interfaces-responses/IAccount';
 
 
 
