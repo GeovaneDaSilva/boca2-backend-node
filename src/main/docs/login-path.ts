@@ -2,6 +2,7 @@ export const loginPath = {
   post: {
     tags: ['Login'],
     summary: 'API to auth account',
+    description: 'Access: { email: test@test.com, password: 123456} ', 
     requestBody: {
       content: {
         'application/json': {
