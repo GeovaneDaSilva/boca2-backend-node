@@ -1,5 +1,8 @@
+import { categoriesPath, categoryPath, DeletecategoryPath, EditcategoryPath } from './category-path'
 import { serverError, badRequest, unauthorized } from './components'
 import { loginPath } from './login-path'
+import { categoryParamsSchema } from './schemas/category/category-params-schema'
+import { categorySchema } from './schemas/category/category-schema'
 import { accountSchema } from './schemas/login/account-schema'
 import { errorSchema } from './schemas/login/error-schema'
 import { loginParamsSchema } from './schemas/login/login-params-schema'
@@ -22,12 +25,16 @@ export default {
   paths: {
     '/login': loginPath, // route
     '/signup': signupPath, // route
-    '/updated/:ID': updateAccountPath, // route
+    '/account/:ID': updateAccountPath, // route
     '/account/{id}': getAccountPath, // route'
     '/accounts/': getAccountsPath, // route'
     '/accounts/activated/{value}': getAccountSFilterPath, // route'
     '/account/{account_id}': deleteAccountSPath, // route'
     '/auth/checkin/token': checkinTokenPath, // route'
+    '/categories': categoriesPath, // route'
+    '/category': categoryPath, // route'
+    '/category/{id}': EditcategoryPath, // route'
+    '/category/{id}/': DeletecategoryPath, // route'
 
     
   },
@@ -40,6 +47,10 @@ export default {
 
     updated: signupSchema, // response
     updateAccountPath: updateAccountPath, // reques
+
+    category: categorySchema, // response
+    categoryParams: categoryParamsSchema, // params
+
 
     error: errorSchema
   },

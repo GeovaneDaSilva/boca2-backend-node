@@ -1,7 +1,7 @@
 export const signupPath = {
   post: {
-    tags: ['Signup'],
-    summary: 'API to register new user',
+    tags: ['Account'],
+    summary: 'API to register new account',
     description: 'Types of Roles = ADMIN_ROLE, SUPER_ROLE, USER_ROLE',
     requestBody: {
       content: {
@@ -37,7 +37,7 @@ export const signupPath = {
 }
 export const updateAccountPath = {
   put: {
-    tags: ['Update Account'],
+    tags: ['Account'],
     summary: 'API to updated account',
     description: 'Types of Roles = ADMIN_ROLE, SUPER_ROLE, USER_ROLE',
     requestBody: {
@@ -77,7 +77,7 @@ export const updateAccountPath = {
 export const getAccountsPath = {
   
   get: {
-    tags: ['Accounts'],
+    tags: ['Account'],
 
     responses: {
       200: {
@@ -147,7 +147,7 @@ export const getAccountPath = {
 export const getAccountSFilterPath = {
   
   get: {
-    tags: ['Get Accounts Activated'],
+    tags: ['Account'],
     parameters: [{
       in: 'path',
       name: 'value',
@@ -188,7 +188,7 @@ export const getAccountSFilterPath = {
 export const deleteAccountSPath = {
   
   delete: {
-    tags: ['Delete Account'],
+    tags: ['Account'],
     parameters: [{
       in: 'path',
       name: 'account_id',
