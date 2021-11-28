@@ -6,6 +6,7 @@ const CategorySchema = new Schema({
   description: String,
   created_date: Date,
   products:[{ type: Schema.Types.ObjectId, ref:'Products'}],
+  image: String,
   activated_dates: Array
 })
 
