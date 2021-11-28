@@ -12,7 +12,9 @@ const AccountSchema = new Schema({
   created_date: Date,
   activated: Boolean,
   activated_at: Date,
-  //devices:[{ type: Schema.Types.ObjectId, ref:'Devices'}],
+  group: { type: Schema.Types.ObjectId },
+
+  // devices:[{ type: Schema.Types.ObjectId, ref:'Devices'}],
 })
 
 AccountSchema.plugin(uniqueValidator, { message: 'Error, expected {VALUE} to be unique.' })

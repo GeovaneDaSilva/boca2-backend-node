@@ -5,7 +5,8 @@ import { IAccountRepository } from '../../../../data/useCases/protocols/reposito
 
 
 
-const props = 'id, phone name last_name email role image created_date activated activated_at devices'
+const props = 'id, phone name last_name email role image created_date activated activated_at group'
+
 export class AccountMongoRepository implements IAccountRepository {
 
   async add (accountData: AddAccountModel): Promise<AccountModel> {

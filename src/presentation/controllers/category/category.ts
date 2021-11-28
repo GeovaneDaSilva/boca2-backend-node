@@ -15,11 +15,6 @@ export class CreateCategoryController implements Controller {
     try {
       const { name, description } = httpRequest.body
 
-      const categoryReadyExist = await this.iCategoryRepository.getOne(name)
-      
-      if (categoryReadyExist) {
-        return badRequest(new ReadyExist(name))
-      }
       const requiredField = ['name', 'description']
       for (const field of requiredField) {
         if (!httpRequest.body[field]) {
@@ -27,6 +22,13 @@ export class CreateCategoryController implements Controller {
         }
       }
 
+      const categoryReadyExist: any = await this.iCategoryRepository.getOne(name)
+          console.log(categoryReadyExist);
+
+      if (categoryReadyExist.Category) {
+        return badRequest(new ReadyExist(name))
+      }
+      
       
       const request: AddCategoryModel = {
         name: name,

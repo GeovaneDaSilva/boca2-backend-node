@@ -4,7 +4,7 @@ import { AddCategoryModel } from '../../../../domain/useCases/category/add-categ
 export interface ICategoryRepository {
   add: (categoryData: AddCategoryModel) => Promise<CategoryModel>
   getAll: () => Promise<CategoryModel>
-  getOne: (email: string) => Promise<CategoryModel>
+  getOne: (name: string) => Promise<CategoryModel>
   getById: (id: string) => Promise<CategoryModel>
   delete: (id: string) => Promise<CategoryModel>
   update: (id: string, body: any) => Promise<CategoryModel>
