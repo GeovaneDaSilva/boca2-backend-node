@@ -13,7 +13,7 @@ export class CreateCategoryController implements Controller {
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const { name, description } = httpRequest.body
+      const { name, description, activated_dates } = httpRequest.body
 
       const requiredField = ['name', 'description']
       for (const field of requiredField) {
@@ -29,10 +29,10 @@ export class CreateCategoryController implements Controller {
         return badRequest(new ReadyExist(name))
       }
       
-      
       const request: AddCategoryModel = {
         name: name,
         description: description,
+        activated_dates: activated_dates,
         created_date: new Date()
       }
       

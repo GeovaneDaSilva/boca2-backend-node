@@ -6,15 +6,15 @@ import { CategoryModel } from '../../../../domain/entities/category'
 
 
 
-const props = 'id, name description packages products created_date activated'
+const props = 'id, name description activated_dates products created_date activated'
 export class CategoryMongoRepository implements ICategoryRepository {
 
   async add (accountData: AddCategoryModel): Promise<CategoryModel> {
     try {
       const collection: AddAccountModel | any = await CategorySchema.create(accountData)
 
-      const { _id, name, description, created_date } = collection
-      const newCollection: any = { id: _id, name: name, description,  created_date: created_date }
+      const { _id, name, description, created_date, products,  activated_dates } = collection
+      const newCollection: any = { id: _id, name: name, description, products, activated_dates,  created_date: created_date }
 
       await collection.save()
       return newCollection
@@ -50,8 +50,8 @@ export class CategoryMongoRepository implements ICategoryRepository {
   async getById (id: string): Promise<CategoryModel> {
     try {
       const collection: AddAccountModel | any = await CategorySchema.findById(id, props)
-      const { _id, name, description, created_date, products, packages } = collection
-      const newCollection: any = { id: _id, name: name,description: description, products: products, packages: packages, created_date: created_date }
+      const { _id, name, description, created_date, products, activated_dates } = collection
+      const newCollection: any = { id: _id, name: name,description: description, products: products, activated_dates: activated_dates, created_date: created_date }
 
       let category: any = {
         Category: newCollection
@@ -65,8 +65,8 @@ export class CategoryMongoRepository implements ICategoryRepository {
   async update (id: string, body: any): Promise<CategoryModel> {
     try {
       const collection: AddAccountModel | any = await CategorySchema.findByIdAndUpdate(id, body, {new: true, useFindAndModify: false})
-      const { _id, name, description, created_date, products, packages } = collection
-      const newCollection: any = { id: _id, name: name,description: description, products: products, packages: packages, created_date: created_date }
+      const { _id, name, description, created_date, products, activated_dates } = collection
+      const newCollection: any = { id: _id, name: name,description: description, products: products, activated_dates: activated_dates, created_date: created_date }
 
       let category: any = {
         Category: newCollection
@@ -81,8 +81,8 @@ export class CategoryMongoRepository implements ICategoryRepository {
     try {
       const collection: AddCategoryModel | any = await CategorySchema.findByIdAndDelete(id)
 
-      const { _id, name, description, created_date, products, packages } = collection
-      const newCollection: any = { id: _id, name: name,description: description, products: products, packages: packages, created_date: created_date }
+      const { _id, name, description, created_date, products, activated_dates } = collection
+      const newCollection: any = { id: _id, name: name,description: description, products: products, activated_dates: activated_dates, created_date: created_date }
 
       let category: any = {
         Category: newCollection
