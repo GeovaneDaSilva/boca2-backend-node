@@ -31,7 +31,7 @@ export const categoryPath = {
   post: {
     tags: ['Category'],
     summary: 'API register categories',
-    description: 'To send the products, you must add an array of product ids.', 
+    description: 'To send the products, you must add an array of product ids. activated_dates, must be an array of numbers that correspond to the number of days in a week you want to show this category. If you send an empty array, it should show every day, and if you send it with the number of days, it should show every day you define in the array.', 
     requestBody: {
       content: {
         'application/json': {
@@ -68,7 +68,7 @@ export const EditcategoryPath = {
   put: {
     tags: ['Category'],
     summary: 'API update categories',
-    description: 'Here you can edit a product category.', 
+    description: 'Here you can edit a product category. activated_dates, must be an array of numbers that correspond to the number of days in a week you want to show this category. If you send an empty array, it should show every day, and if you send it with the number of days, it should show every day you define in the array.', 
     parameters: [{
       in: 'path',
       name: 'id',
