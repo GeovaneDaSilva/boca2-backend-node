@@ -6,14 +6,14 @@ import UploadSchema from '../mongo-schemas/upload-schema';
 
 
 
-const props = 'id, name links routes description activated_dates products created_date activated image'
+const props = 'id, name links path routes description activated_dates products created_date activated image'
 export class UploadMongoRepository implements IUploadRepository {
 
   async add (accountData: UploadModel): Promise<IUploadModel> {
     try {
       const collection: IUploadModel | any = await UploadSchema.create(accountData)
       const { _id, name, path, owner, created_at } = collection
-      const newCollection: any = { id: _id, name: name, owner: owner, created_at: created_at}
+      const newCollection: any = { id: _id, name: name, owner: owner, path: path, created_at: created_at}
       await collection.save()
       let upload: any = {
         upload: newCollection

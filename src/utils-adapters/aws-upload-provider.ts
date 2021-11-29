@@ -6,17 +6,23 @@ import { IParams, IUploadAws } from '../presentation/interfaces/aws-s3-upload'
 export class UploadAwsAdapter implements IUploadAws {
   async upload (params: IParams): Promise<IParams> {
     try {
+      
       const s3 = new AWS.S3({
-        accessKeyId: process.env.AWS_ID,
-        secretAccessKey: process.env.AWS_SECRET
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
       })
 
       const S3params = {
         Bucket: process.env.AWS_BUCKET_NAME,
+        Body: params.body,
         Key: params.key,
-        Body: params.body
+        ACL: 'public-read',
       }
-      const upload: any = s3.upload(S3params, (data) => data)
+
+      const options = { partSize: 10 * 1024 * 1024, queueSize: 1}
+
+      const upload: any = s3.upload(S3params, options).promise()
+      console.log('paramssss', upload)
       return upload
     } catch (error) {
       console.log(error)

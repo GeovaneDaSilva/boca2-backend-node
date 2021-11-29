@@ -34,8 +34,8 @@ export const makeEditCategoryController = (): EditCategoryController => {
 
   const categoryMongoRepository = new CategoryMongoRepository()
 
-  const DbEdittecategory = new DbEditCategory(categoryMongoRepository)
-  const editCategoryController = new EditCategoryController(DbEdittecategory, categoryMongoRepository)
+  const DbEditecategory = new DbEditCategory(categoryMongoRepository)
+  const editCategoryController = new EditCategoryController(DbEditecategory, categoryMongoRepository)
   return editCategoryController
 }
 

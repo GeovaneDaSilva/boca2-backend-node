@@ -4,4 +4,7 @@ export class UploadModel {
   router: any
   path: string
   created_date: Date
+  data?: any
+  type?: string
+  name_archive?: string
 }

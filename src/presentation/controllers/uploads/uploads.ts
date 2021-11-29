@@ -1,3 +1,4 @@
+import { IAccountRepository } from './../../../data/useCases/protocols/repositories/account-repository';
 import { ICategoryRepository } from './../../../data/useCases/protocols/repositories/category-repository';
 import { badRequest } from './../../helpers/http-helper';
 import { serverError, success } from "../../helpers/http-helper"
@@ -5,14 +6,21 @@ import { AddUpload, Controller, HttpRequest, HttpResponse } from "./uploads-prot
 import { InvalidParamError, MissingParamError, ReadyExist } from '../../errors';
 import fs from 'fs';
 import { IUploadRepository } from '../../../data/useCases/protocols/repositories/upload-repository';
+import { EditCategory } from '../category/category-protocols';
+import { UpdateAccount } from '../../../domain/useCases/account/update-account';
 
 export class UploadController implements Controller {
     constructor(private readonly addUpload: AddUpload,
       private readonly iCategoryRepository: ICategoryRepository,
-      private readonly iUploadRepository: IUploadRepository) {
+      private readonly iUploadRepository: IUploadRepository,
+      private readonly iAccountRepository: IAccountRepository,
+      private readonly editCategory: EditCategory,
+      private readonly updateAccount: UpdateAccount) {
         this.addUpload = addUpload
         this.iCategoryRepository = iCategoryRepository
         this.iUploadRepository = iUploadRepository
+        this.iAccountRepository = iAccountRepository
+        this.updateAccount = updateAccount
     }
   
     async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
@@ -41,35 +49,63 @@ export class UploadController implements Controller {
         }
         let nameArchive = `${id}-${nameSplit[0]}.${ extensionArchive}`
 
-        console.log(nameArchive);
-        let path: any = `src/uploads/${ type }/${nameArchive}`; //  Definimos las rutas de los archivos
-        
-        const category: any = await this.iCategoryRepository.getById(id)
-        
-        if(category === undefined) return badRequest(new InvalidParamError(id))
-        if(category.Category.id === null) return badRequest(new InvalidParamError(id))
-
-        const getPathDb: any = await this.iUploadRepository.getOne(path)
-               
-        if(getPathDb) return badRequest(new ReadyExist(img.name))
-
-        await img.mv( path )
-
+        let path: any = `src/uploads/${ type }/${nameArchive}`; //  path local
+      
+        let path_db: any = `uploads/${ type }/${nameArchive}`; //  path DB
         
         if(type === 'categories') {
+          const category: any = await this.iCategoryRepository.getById(id)
+        
+          if(category === undefined) return badRequest(new InvalidParamError(id))
+          if(category.Category.id === null) return badRequest(new InvalidParamError(id))
+
+          const getPathDb: any = await this.iUploadRepository.getOne(path_db)
+               
+          if(getPathDb) return badRequest(new ReadyExist(img.name))
+
+          // await img.mv( path )
+
           let pathOld = './uploads/categories/' + category.Category.image;
           if( fs.existsSync(pathOld)){
             fs.unlinkSync( pathOld );
           }
-
-          category.Category.image = nameArchive;
+          let body: any = {
+            image: path
+          }
+          await this.editCategory.edit(category.Category.id, body)
         }
-      
+
+        if(type === 'users') {
+          const account: any = await this.iAccountRepository.getById(id)
+          
+          if(account === undefined) return badRequest(new InvalidParamError(id))
+          if(account.id === null) return badRequest(new InvalidParamError(id))
+
+          const getPathDb: any = await this.iUploadRepository.getOne(path_db)
+               
+          if(getPathDb) return badRequest(new ReadyExist(img.name))
+
+          // await img.mv( path )
+
+          let pathOld = './uploads/users/' + account.image;
+          if( fs.existsSync(pathOld)){
+            fs.unlinkSync( pathOld );
+          }
+          let body: any = {
+            image: path
+          }
+          await this.updateAccount.edit(account.id, body)
+        }
+        
+        
         const newUpload: any = {
-          path: path,
+          path: `uploads/${ type }/${nameArchive}`,
           name: img.name,
           created_at: new Date(),
-          owner: id
+          owner: id,
+          data: img.data,
+          name_archive: nameArchive,
+          type: type
         }
 
         

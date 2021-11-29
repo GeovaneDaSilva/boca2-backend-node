@@ -3,6 +3,7 @@ import { AccountModel } from '../../entities/account'
 
 export interface IUploadModel {
     _id?: string
+    owner?: string
     name: string
     router: any
     path: string
