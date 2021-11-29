@@ -70,7 +70,7 @@ export class UploadController implements Controller {
             fs.unlinkSync( pathOld );
           }
           let body: any = {
-            image: path
+            image: path_db
           }
           await this.editCategory.edit(category.Category.id, body)
         }
@@ -92,7 +92,7 @@ export class UploadController implements Controller {
             fs.unlinkSync( pathOld );
           }
           let body: any = {
-            image: path
+            image: path_db
           }
           await this.updateAccount.edit(account.id, body)
         }
