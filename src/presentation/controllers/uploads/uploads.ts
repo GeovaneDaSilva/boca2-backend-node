@@ -49,7 +49,7 @@ export class UploadController implements Controller {
         
         let nameSplit = img.name.split('.');
         let extensionArchive = nameSplit[nameSplit.length -1];
-        const extensionValids = ['png', 'jpg', 'gif', 'jpeg', 'png', 'JPG']
+        const extensionValids = ['png', 'jpg', 'gif', 'jpeg', 'png', 'JPG', 'webp']
         
         if( extensionValids.indexOf(extensionArchive) < 0 ){
           return badRequest(new MissingParamError(`Please send a file with the valid extension type: ${extensionValids}`))
