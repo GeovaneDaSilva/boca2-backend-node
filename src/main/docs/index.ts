@@ -8,7 +8,10 @@ import { errorSchema } from './schemas/login/error-schema'
 import { loginParamsSchema } from './schemas/login/login-params-schema'
 import { signupParamsSchema } from './schemas/signup/signup-params-schema'
 import { signupSchema } from './schemas/signup/signup-schema'
+import { uploadParamsSchema } from './schemas/upload/upload-params-schema'
+import { uploadSchema } from './schemas/upload/upload-schema'
 import { checkinTokenPath, deleteAccountSPath, getAccountPath, getAccountSFilterPath, getAccountsPath, signupPath, updateAccountPath } from './signup-path'
+import { uploadPath, uploadsPath } from './upload-path'
 export default {
   openapi: '3.0.0',
   info: {
@@ -35,7 +38,8 @@ export default {
     '/category': categoryPath, // route'
     '/category/{id}': EditcategoryPath, // route'
     '/category/{id}/': DeletecategoryPath, // route'
-
+    '/uploads/': uploadsPath, // route'
+    '/upload/{type}/{id}': uploadPath, // route'
     
   },
   schemas: {
@@ -51,7 +55,9 @@ export default {
     category: categorySchema, // response
     categoryParams: categoryParamsSchema, // params
 
-
+    upload: uploadSchema, // response
+    uploadParams: uploadParamsSchema, 
+    // params
     error: errorSchema
   },
   components: {

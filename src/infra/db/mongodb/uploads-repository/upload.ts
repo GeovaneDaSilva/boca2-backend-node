@@ -3,6 +3,7 @@ import { IUploadRepository } from '../../../../data/useCases/protocols/repositor
 import { UploadModel } from '../../../../domain/entities/upload';
 import { IUploadModel } from '../../../../domain/useCases/uploads/add-upload';
 import UploadSchema from '../mongo-schemas/upload-schema';
+import ProductSchema from '../mongo-schemas/product-schema';
 
 
 
@@ -28,8 +29,12 @@ export class UploadMongoRepository implements IUploadRepository {
     try {
       const collection: IUploadModel | any = await UploadSchema.find({}, props)
       if(collection === null) return
+      
+      let upload: any = {
+        uploads: collection
+      }
 
-      return collection
+      return upload
     } catch (error) {
       console.log(error)
     }
@@ -95,6 +100,25 @@ export class UploadMongoRepository implements IUploadRepository {
       const collection: IUploadModel | any = await UploadSchema.find(value, props)
       if(collection === null) return
       return collection
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async pushUpload (id: string, image: string): Promise<IUploadModel> {
+    try {
+      
+      const productDb: any = await ProductSchema.findById(id)
+
+      const resultPush = await productDb.uploads.push(image)
+      console.log('send Push', resultPush);
+      
+      await productDb.save()
+
+      console.log(resultPush);
+      
+      return resultPush
+      
     } catch (error) {
       console.log(error)
     }

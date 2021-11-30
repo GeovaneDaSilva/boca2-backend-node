@@ -3,6 +3,8 @@ import { AddAccountModel } from '../../../../domain/useCases/account/add-account
 import CategorySchema from '../mongo-schemas/category-schema'
 import { ICategoryRepository } from '../../../../data/useCases/protocols/repositories/category-repository'
 import { CategoryModel } from '../../../../domain/entities/category'
+import ProductSchema from '../mongo-schemas/product-schema'
+
 
 
 
@@ -12,7 +14,7 @@ export class CategoryMongoRepository implements ICategoryRepository {
   async add (accountData: AddCategoryModel): Promise<CategoryModel> {
     try {
       const collection: AddAccountModel | any = await CategorySchema.create(accountData)
-
+      if(collection === null) return
       const { _id, name, description, created_date, products, image, activated_dates } = collection
       const newCollection: any = { id: _id, name: name, description, products, activated_dates, image: image,  created_date: created_date }
 
@@ -26,6 +28,7 @@ export class CategoryMongoRepository implements ICategoryRepository {
   async getAll (): Promise<CategoryModel> {
     try {
       const collection: AddCategoryModel | any = await CategorySchema.find({}, props)
+      .populate({path: 'products', model: ProductSchema})
        let categories: any = {
         Categories: collection
        }
@@ -37,7 +40,8 @@ export class CategoryMongoRepository implements ICategoryRepository {
 
   async getOne (name: string): Promise<CategoryModel> {
     try {
-      const collection: AddCategoryModel | any = await CategorySchema.findOne({ name: name }, )
+      const collection: AddCategoryModel | any = await CategorySchema.findOne({ name: name })
+      .populate({path: 'products', model: ProductSchema})
       let category: any = {
         Category: collection
        }
@@ -80,7 +84,7 @@ export class CategoryMongoRepository implements ICategoryRepository {
   async delete (id: string): Promise<CategoryModel> {
     try {
       const collection: AddCategoryModel | any = await CategorySchema.findByIdAndDelete(id)
-
+      .populate({path: 'products', model: ProductSchema})
       const { _id, name, description, created_date, products, image, activated_dates } = collection
       const newCollection: any = { id: _id, name: name,description: description, image: image, products: products, activated_dates: activated_dates, created_date: created_date }
 

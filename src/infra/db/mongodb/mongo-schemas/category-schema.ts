@@ -5,9 +5,9 @@ const CategorySchema = new Schema({
   name: String,
   description: String,
   created_date: Date,
-  products:[{ type: Schema.Types.ObjectId, ref:'Products'}],
   image: String,
-  activated_dates: Array
+  activated_dates: Array,
+  products:[{ type: Schema.Types.ObjectId, ref:'Products'}],
 })
 
 CategorySchema.plugin(uniqueValidator, { message: 'Error, expected {VALUE} to be unique.' })

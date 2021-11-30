@@ -2,6 +2,7 @@ import { IUploadRepository } from './../protocols/repositories/upload-repository
 import { UploadModel } from "../../../domain/entities/upload"
 import { AddUpload, IUploadModel } from "../../../domain/useCases/uploads/add-upload"
 import { IParams, IUploadAws } from '../../../presentation/interfaces/aws-s3-upload';
+import { ListUploads } from '../../../domain/useCases/uploads/get-upload';
 
 export class DbAddUpload implements AddUpload {
 
@@ -35,3 +36,16 @@ export class DbAddUpload implements AddUpload {
     }
   }
   
+export class DbListUpload implements ListUploads {
+
+  constructor(private readonly iUploadRepository: IUploadRepository){
+    this.iUploadRepository = iUploadRepository
+  }
+
+  async get (uploads: UploadModel): Promise<IUploadModel> {
+
+    return new Promise(resolve => resolve(
+      uploads
+    ))
+  }
+}  

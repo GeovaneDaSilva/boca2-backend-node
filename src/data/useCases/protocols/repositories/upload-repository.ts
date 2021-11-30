@@ -10,7 +10,7 @@ export interface IUploadRepository {
   update: (id: string, body: any) => Promise<IUploadModel>
   count: (value?: any) => Promise<IUploadModel>
   select: (value?: any) => Promise<IUploadModel>
-
+  pushUpload: (id: string, img: string) => Promise<IUploadModel>
 
 }
 

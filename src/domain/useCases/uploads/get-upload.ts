@@ -9,6 +9,6 @@ export interface IUploadModel {
     created_date: Date
   }
 
-export interface AddUpload {
-  add: (account: UploadModel) => Promise<IUploadModel>
+export interface ListUploads {
+  get: (account: UploadModel) => Promise<IUploadModel>
 }
