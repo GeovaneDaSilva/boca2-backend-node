@@ -1,3 +1,5 @@
+import { productSchema } from './schemas/product/product-schema';
+import { productByIdPath, productPath, productsPath } from './product-path';
 import { categoriesPath, categoryPath, DeletecategoryPath, EditcategoryPath } from './category-path'
 import { serverError, badRequest, unauthorized } from './components'
 import { loginPath } from './login-path'
@@ -12,6 +14,8 @@ import { uploadParamsSchema } from './schemas/upload/upload-params-schema'
 import { uploadSchema } from './schemas/upload/upload-schema'
 import { checkinTokenPath, deleteAccountSPath, getAccountPath, getAccountSFilterPath, getAccountsPath, signupPath, updateAccountPath } from './signup-path'
 import { uploadPath, uploadsPath } from './upload-path'
+import { productParamsSchema } from './schemas/product/product-params-schema';
+
 export default {
   openapi: '3.0.0',
   info: {
@@ -40,11 +44,16 @@ export default {
     '/category/{id}/': DeletecategoryPath, // route'
     '/uploads/': uploadsPath, // route'
     '/upload/{type}/{id}': uploadPath, // route'
-    
+    '/products/': productsPath, // route'
+    '/product/{category_id}': productPath, // route'
+    '/product/{product_id}': productByIdPath, // route'
   },
   schemas: {
     account: accountSchema, // response
     loginParams: loginParamsSchema, // request
+
+    product: productSchema, // response
+    productParams: productParamsSchema, // request
 
     signup: signupSchema, // response
     signupParams: signupParamsSchema, // reques

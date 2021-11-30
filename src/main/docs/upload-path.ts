@@ -30,7 +30,7 @@ export const uploadsPath = {
 export const uploadPath = {
   post: {
     tags: ['Uploads'],
-    summary: 'API register categories',
+    summary: 'API register uploads',
     description: `Here you can upload a file to AWS and save it to the database. Valid types are: users, categories, products, packages, path url = {{url}}/upload/:type/:id
     type = ["users", "products", "categories", packages"]
     select the object id you want to update.`, 
