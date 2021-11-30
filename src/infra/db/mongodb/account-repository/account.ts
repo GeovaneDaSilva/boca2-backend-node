@@ -13,8 +13,8 @@ export class AccountMongoRepository implements IAccountRepository {
     try {
       const collection: AddAccountModel | any = await AccountSchema.create(accountData)
 
-      const { _id, name, email, last_name, phone, role, activated, created_date } = collection
-      const newCollection: any = { id: _id, name: name, last_name, email: email, role: role, phone, activated, created_date: created_date }
+      const { _id, name, email, last_name, phone, image, role, activated, created_date } = collection
+      const newCollection: any = { id: _id, name: name, image: image, last_name, email: email, role: role, phone, activated, created_date: created_date }
 
       await collection.save()
       return newCollection
@@ -45,8 +45,8 @@ export class AccountMongoRepository implements IAccountRepository {
   async getById (id: string): Promise<AccountModel> {
     try {
       const collection: AddAccountModel | any = await AccountSchema.findById(id, props)
-      const { _id, name, email, last_name, phone, role, activated, activated_at, created_date } = collection
-      const newCollection: any = { id: _id, name: name, last_name, email: email, role: role, phone, activated, activated_at, created_date: created_date }
+      const { _id, name, email, last_name, phone, image, role, activated, activated_at, created_date } = collection
+      const newCollection: any = { id: _id, name: name, image: image, last_name, email: email, role: role, phone, activated, activated_at, created_date: created_date }
 
       return newCollection
     } catch (error) {

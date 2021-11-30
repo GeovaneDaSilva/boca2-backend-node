@@ -25,6 +25,7 @@ export class Dbauth implements Authentication {
         role: userDB.role,
         last_name: userDB.last_name,
         phone: userDB.phone,
+        image: userDB.image,
         activated: userDB.activated,
         created_date: userDB.created_date,
         activated_at: userDB.activated_at,
