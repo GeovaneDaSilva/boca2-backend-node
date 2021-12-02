@@ -64,6 +64,41 @@ export const categoryPath = {
     }
   }
 }
+
+export const GetCategoryByIdPath = {
+  get: {
+    tags: ['Category'],
+    summary: 'API Get category',
+    description: 'Here you can get a product category.', 
+    parameters: [{
+      in: 'path',
+      name: 'id',
+      description: `You need to pass the Id of the category you want to list.`,
+      required: true
+    }],
+    responses: {
+      200: {
+        description: 'Success',
+        content: {
+          'application/json': {
+            schema: {
+              $ref: '#/schemas/category'
+            }
+          }
+        }
+      },
+      404: {
+        $ref: '#/components/badRequest'
+      },
+      401: {
+        $ref: '#/components/unauthorized'
+      },
+      500: {
+        $ref: '#/components/serverError'
+      }
+    }
+  }
+}
 export const EditcategoryPath = {
   put: {
     tags: ['Category'],
@@ -115,19 +150,41 @@ export const DeletecategoryPath = {
     description: 'Here you can delete a product category.', 
     parameters: [{
       in: 'path',
-      name: 'id',
+      name: 'category_id',
       description: `You need to pass the Id of the category you want to delete.`,
       required: true
     }],
-    requestBody: {
-      content: {
-        'application/json': {
-          schema: {
-            $ref: '#/schemas/categoryParams'
+
+    responses: {
+      200: {
+        description: 'Success',
+        content: {
+          'application/json': {
+            schema: {
+              $ref: '#/schemas/category'
+            }
           }
         }
+      },
+      404: {
+        $ref: '#/components/badRequest'
+      },
+      401: {
+        $ref: '#/components/unauthorized'
+      },
+      500: {
+        $ref: '#/components/serverError'
       }
-    },
+    }
+  }
+}
+
+export const categoriesActivatedPath = {
+  get: {
+    tags: ['Category'],
+    summary: 'API list categories activateds',
+    description: 'To list the categories, you need add param activated: boolean.', 
+
     responses: {
       200: {
         description: 'Success',

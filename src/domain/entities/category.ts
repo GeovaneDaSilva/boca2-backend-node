@@ -4,6 +4,7 @@ export class CategoryModel {
     name: string
     description: string
     short_description: string
+    activated_dates?: string
     created_date: Date
   }
   

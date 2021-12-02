@@ -134,8 +134,12 @@ export class CategoryMongoRepository implements ICategoryRepository {
 
   async select (value: any): Promise<CategoryModel> {
     try {
-      const collection: AddCategoryModel | any = await CategorySchema.find(value, props)
+       
+    
+      let collection: AddCategoryModel | any = await CategorySchema.find(value)
+
       return collection
+
     } catch (error) {
       console.log(error)
     }

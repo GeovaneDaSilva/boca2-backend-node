@@ -1,6 +1,6 @@
 import { productSchema } from './schemas/product/product-schema';
 import { productByIdPath, productPath, productsPath } from './product-path';
-import { categoriesPath, categoryPath, DeletecategoryPath, EditcategoryPath } from './category-path'
+import { categoriesActivatedPath, categoriesPath, categoryPath, DeletecategoryPath, EditcategoryPath, GetCategoryByIdPath } from './category-path'
 import { serverError, badRequest, unauthorized } from './components'
 import { loginPath } from './login-path'
 import { categoryParamsSchema } from './schemas/category/category-params-schema'
@@ -41,12 +41,16 @@ export default {
     '/categories': categoriesPath, // route'
     '/category': categoryPath, // route'
     '/category/{id}': EditcategoryPath, // route'
-    '/category/{id}/': DeletecategoryPath, // route'
+    '/category/{id}/': GetCategoryByIdPath, // route'
+    '/category/{category_id}': DeletecategoryPath, // route'
+    '/categories/activated': categoriesActivatedPath, // route'
+
     '/uploads/': uploadsPath, // route'
     '/upload/{type}/{id}': uploadPath, // route'
     '/products/': productsPath, // route'
     '/product/{category_id}': productPath, // route'
     '/product/{product_id}': productByIdPath, // route'
+
   },
   schemas: {
     account: accountSchema, // response

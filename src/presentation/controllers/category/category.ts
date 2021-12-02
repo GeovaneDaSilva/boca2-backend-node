@@ -166,17 +166,42 @@ export class DeleteCategoryController implements Controller {
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
 
-      const id = httpRequest.params.id
+      const category_id = httpRequest.params.category_id
 
-      const categoryReadyExist = await this.iCategoryRepository.getById(id)
+      const categoryReadyExist = await this.iCategoryRepository.getById(category_id)
       
             
       if (!categoryReadyExist) {
-        return badRequest(new ReadyExist(id))
+        return badRequest(new ReadyExist(category_id))
       }
       
 
       const DTOCatregory = await this.deleteCategory.delete(categoryReadyExist)
+      return success(DTOCatregory)
+    } catch (error) {
+      console.log(error)
+      return serverError(error)
+    }
+  }
+}
+
+export class SelectCategoriesController implements Controller {
+  constructor(private readonly listCategory:ListCategory, private readonly iCategoryRepository: ICategoryRepository){
+    this.listCategory = listCategory
+    this.iCategoryRepository = iCategoryRepository
+  }
+
+  async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
+    try {
+
+      const activated = httpRequest.params.activated
+
+      
+      const getDay = new Date().getDay() // Day Of the Week
+
+      const listCategoriesDb = await this.iCategoryRepository.select({activated_dates: getDay})
+
+      const DTOCatregory = await this.listCategory.get(listCategoriesDb)
       return success(DTOCatregory)
     } catch (error) {
       console.log(error)
