@@ -7,9 +7,13 @@ const CategorySchema = new Schema({
   created_date: Date,
   image: String,
   activated_dates: Array,
+  short_description: String, 
   products:[{ type: Schema.Types.ObjectId, ref:'Products'}],
 })
 
+
+
 CategorySchema.plugin(uniqueValidator, { message: 'Error, expected {VALUE} to be unique.' })
+
 
 export default mongoose.model('Category', CategorySchema)

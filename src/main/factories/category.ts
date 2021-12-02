@@ -1,5 +1,5 @@
 
-import { CreateCategoryController, DeleteCategoryController, EditCategoryController, ListCategoriesController, ListCategoryController } from '../../presentation/controllers/category/category'
+import { CreateCategoryController, DeleteCategoryController, EditCategoryController, GetProductsCategoryByIdController, ListCategoriesController, ListCategoryController } from '../../presentation/controllers/category/category'
 import { CategoryMongoRepository } from '../../infra/db/mongodb/category-repository/category'
 import { DbAddCategory, DbDeleteCategory, DbEditCategory, DbListCategory } from '../../data/useCases/db-category/db-category'
 
@@ -19,6 +19,15 @@ export const makeListCategoryController = (): ListCategoryController => {
   const category = new DbListCategory()
   const listCategoryController = new ListCategoryController(category, categoryMongoRepository)
   return listCategoryController
+}
+
+export const makeGetProductsCategoryByIdController = (): GetProductsCategoryByIdController => {
+
+  const categoryMongoRepository = new CategoryMongoRepository()
+
+  const category = new DbListCategory()
+  const getProductsCategoryByIdController = new GetProductsCategoryByIdController(category, categoryMongoRepository)
+  return getProductsCategoryByIdController
 }
 
 export const makeListCategoriesController = (): ListCategoriesController => {

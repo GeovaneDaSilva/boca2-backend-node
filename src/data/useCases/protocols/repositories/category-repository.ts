@@ -6,6 +6,7 @@ export interface ICategoryRepository {
   getAll: () => Promise<CategoryModel>
   getOne: (name: string) => Promise<CategoryModel>
   getById: (id: string) => Promise<CategoryModel>
+  getProductsByCategoryId: (id: string) => Promise<CategoryModel>
   delete: (id: string) => Promise<CategoryModel>
   update: (id: string, body: any) => Promise<CategoryModel>
   count: (value?: any) => Promise<CategoryModel>

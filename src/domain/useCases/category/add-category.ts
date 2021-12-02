@@ -5,6 +5,7 @@ export interface AddCategoryModel {
   Category?: any
   description: string
   created_date: Date
+  short_description: string
   activated_dates?: any
 
 }

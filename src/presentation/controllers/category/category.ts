@@ -2,7 +2,7 @@ import { AddCategory, AddCategoryModel, DeleteCategory, EditCategory, ListCatego
 import { badRequest, serverError, success } from "../../helpers/http-helper"
 import { Controller, HttpRequest, HttpResponse } from "./category-protocols"
 import { ICategoryRepository } from '../../../data/useCases/protocols/repositories/category-repository';
-import { MissingParamError, ReadyExist } from '../../errors';
+import { MissingParamError, NoReadyExist, ReadyExist } from '../../errors';
 
 
 export class CreateCategoryController implements Controller {
@@ -13,7 +13,7 @@ export class CreateCategoryController implements Controller {
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const { name, description, activated_dates } = httpRequest.body
+      const { name, description, short_description, activated_dates } = httpRequest.body
 
       const requiredField = ['name', 'description']
       for (const field of requiredField) {
@@ -33,6 +33,7 @@ export class CreateCategoryController implements Controller {
         name: name,
         description: description,
         activated_dates: activated_dates,
+        short_description: short_description,
         created_date: new Date()
       }
       
@@ -89,6 +90,34 @@ export class ListCategoryController implements Controller {
             
       if (!categoryReadyExist) {
         return badRequest(new ReadyExist(id))
+      }
+      
+
+      const DTOCatregory = await this.listCategory.get(categoryReadyExist)
+      return success(DTOCatregory)
+    } catch (error) {
+      console.log(error)
+      return serverError(error)
+    }
+  }
+}
+
+export class GetProductsCategoryByIdController implements Controller {
+  constructor(private readonly listCategory:ListCategory, private readonly iCategoryRepository: ICategoryRepository){
+    this.listCategory = listCategory
+    this.iCategoryRepository = iCategoryRepository
+  }
+
+  async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
+    try {
+
+      const category_id = httpRequest.params.category_id
+
+      const categoryReadyExist = await this.iCategoryRepository.getProductsByCategoryId(category_id)
+      
+            
+      if (!categoryReadyExist) {
+        return badRequest(new NoReadyExist(category_id))
       }
       
 

@@ -32,7 +32,7 @@ export class ProductMongoRepository implements IProductRepository {
   async getAll (): Promise<IProductResponse> {
     try {
       const collection: ProductModel | any = await ProductSchema.find({}, props)
-      .populate({path: 'category', model: CategorySchema, populate: [{path: 'products', model: ProductSchema}]})
+      //.populate({path: 'category', model: CategorySchema})
       const total:number = await ProductSchema.count()
 
       let products: any = {
