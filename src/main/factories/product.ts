@@ -1,7 +1,7 @@
 import { DbAddProduct } from "../../data/useCases/db-product/db-product"
 import { CategoryMongoRepository } from "../../infra/db/mongodb/category-repository/category"
 import { ProductMongoRepository } from "../../infra/db/mongodb/product-repository/product"
-import { GetProductController, ListProductsController, RegisterProductController, UpdateProductController } from "../../presentation/controllers/product/product"
+import { GetProductController, ListProductsController, RegisterProductController, RemoveProductController, UpdateProductController } from "../../presentation/controllers/product/product"
 
 
 export const makeRegisterProductController = (): RegisterProductController => {
@@ -37,3 +37,12 @@ export const makeUpdateProductController = (): UpdateProductController => {
   const updateProductController = new UpdateProductController(dbAddProduct, productMongoRepository)
   return updateProductController
 }
+
+export const makeRemoveProductController = (): RemoveProductController => {
+
+  const productMongoRepository = new ProductMongoRepository()
+  const dbAddProduct = new DbAddProduct(productMongoRepository)
+  const removeProductController = new RemoveProductController(dbAddProduct, productMongoRepository)
+  return removeProductController
+}
+

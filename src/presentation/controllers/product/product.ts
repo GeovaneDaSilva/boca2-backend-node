@@ -155,3 +155,29 @@ export class GetProductController implements Controller {
     }
   }
 }
+
+export class RemoveProductController implements Controller {
+
+  constructor(private readonly iProduct: IProduct,
+    private readonly iProductRepository: IProductRepository){
+    this.iProduct = iProduct
+
+  }
+
+  async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
+    try {
+
+      const product_id = httpRequest.params.product_id
+      const productDb: any = await this.iProductRepository.getById(product_id)
+
+      if(!productDb) return badRequest(new InvalidParamError(product_id))
+    
+      const DTOProduct = await this.iProduct.remove(productDb)
+      
+      return success(DTOProduct)
+    } catch (error) {
+      console.log(error)
+      return serverError(error)
+    }
+  }
+}

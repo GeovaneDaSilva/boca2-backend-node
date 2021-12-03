@@ -21,6 +21,7 @@ export interface IProductResponse {
     sku: string
     items?: any
     uploads?: any
+    product?: any
 }
 
 
@@ -29,5 +30,5 @@ export interface IProduct {
   get?: (id: ProductModel) => Promise<IProductResponse>
   getAll?: (product: ProductModel) => Promise<IProductResponse>
   update?: (id: ProductModel, body: any) => Promise<IProductResponse>
-  delete?: (id: string) => Promise<IProductResponse>
+  remove?: (id: ProductModel) => Promise<IProductResponse>
 }

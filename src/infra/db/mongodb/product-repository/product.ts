@@ -58,7 +58,7 @@ export class ProductMongoRepository implements IProductRepository {
   async getById (id: string): Promise<IProductResponse> {
     try {
       const collection: ProductModel | any = await ProductSchema.findById(id, props)
-      .populate({path: 'category', model: CategorySchema, populate: [{path: 'products', model: ProductSchema}]})
+      .populate({path: 'category', model: CategorySchema})
       const { _id, 
         tags,
         name,
@@ -158,11 +158,25 @@ export class ProductMongoRepository implements IProductRepository {
 
   async delete (id: string): Promise<IProductResponse> {
     try {
-      const collection: ProductModel | any = await ProductSchema.findByIdAndDelete(id)
 
-      const { _id, name, email, last_name, phone, role, activated, created_date, activated_at } = collection
-      const newCollection: any = { id: _id, name: name, last_name, email: email, role: role, phone, activated, created_date: created_date, activated_at }
-      return newCollection
+
+      const collectionRemoveProduct: ProductModel | any = await ProductSchema.findByIdAndDelete(id)
+      
+      const collectionCategory: ProductModel | any = await CategorySchema.findById(collectionRemoveProduct.category)
+      
+    
+      let categories = await collectionCategory.products;
+
+      const index = categories.indexOf(id);
+      if (index > -1) {
+        categories.splice(index, 1);
+      }
+
+
+      await CategorySchema.findByIdAndUpdate({_id: collectionRemoveProduct.category}, {$set: {products: categories}})
+
+
+      return collectionRemoveProduct
     } catch (error) {
       console.log(error)
     }

@@ -36,5 +36,15 @@ export class DbAddProduct implements IProduct {
         productUpdated
       ))
     }
+
+    async remove (product: IProductResponse): Promise<IProductResponse> {
+      
+      let { id } = product.product
+      const deleteProduct = await this.iProductRepository.delete(id)
+    
+      return new Promise(resolve => resolve(
+        deleteProduct
+      ))
+    }
 }
 
