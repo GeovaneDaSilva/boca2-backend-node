@@ -1,6 +1,6 @@
 import { IItemRepository } from "../../../data/useCases/protocols/repositories/item-repository"
 import { IProductRepository } from "../../../data/useCases/protocols/repositories/product-repository"
-import { InvalidParamError, MissingParamError, ReadyExist } from "../../errors"
+import { InvalidParamError, MissingParamError, NoReadyExist, ReadyExist } from "../../errors"
 import { badRequest, serverError, success } from "../../helpers/http-helper"
 import { Controller, HttpRequest, HttpResponse, IItem } from "./item-protocols"
 
@@ -186,4 +186,31 @@ export class RemoveItemController implements Controller {
   }
 }
 
+export class GetItemsProductByIdController implements Controller {
+  constructor(private readonly iItem: IItem, private readonly iItemRepository: IItemRepository){
+    this.iItem = iItem
+    this.iItemRepository = iItemRepository
+  }
 
+  async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
+    try {
+
+      const product_id = httpRequest.params.product_id
+      
+
+      const productReadyExist = await this.iItemRepository.getItemsByProductId(product_id)
+                  
+      if (!productReadyExist) {
+        return badRequest(new NoReadyExist(product_id))
+      }
+      
+      
+
+      const DTOProduct = await this.iItem.get(productReadyExist)
+      return success(DTOProduct)
+    } catch (error) {
+      console.log(error)
+      return serverError(error)
+    }
+  }
+}

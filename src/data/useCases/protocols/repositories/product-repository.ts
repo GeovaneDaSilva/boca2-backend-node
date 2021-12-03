@@ -10,7 +10,6 @@ export interface IProductRepository {
   update: (id: ProductModel, body: ProductModel) => Promise<IProductResponse>
   count: (value?: any) => Promise<IProductResponse>
   select: (value?: any) => Promise<IProductResponse>
-
 }
 
 

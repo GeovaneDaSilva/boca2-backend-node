@@ -4,6 +4,7 @@ import ProductSchema from '../mongo-schemas/product-schema'
 import { ItemModel } from '../../../../domain/entities/item'
 import { IItemResponse } from '../../../../domain/useCases/item/items'
 import { IItemRepository } from '../../../../data/useCases/protocols/repositories/item-repository'
+import { ProductModel } from '../../../../domain/entities/product'
 
 
 
@@ -190,6 +191,27 @@ export class ItemMongoRepository implements IItemRepository {
     try {
       const collection: ItemModel | any = await ItemSchema.find(value, props)
       return collection
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getItemsByProductId (id: string): Promise<ProductModel> {
+    try {
+      const collection: ItemModel | any = await ProductSchema.findById(id, props)
+
+      .populate({path: 'items', model: ItemSchema})
+      const { _id, name, description, created_date, items, products, short_description, image, activated_dates } = collection
+      const newCollection: any = { id: _id, name: name,description: description, items: items, products: products, short_description: short_description, image: image, activated_dates: activated_dates, created_date: created_date }
+      
+
+
+      let product: any = {
+        Product: newCollection,
+        count_item: collection.items.length
+       }
+       
+      return product
     } catch (error) {
       console.log(error)
     }

@@ -1,15 +1,15 @@
-export const productsPath = {
+export const itemsPath = {
   get: {
-    tags: ['Products'],
-    summary: 'API list products',
-    description: 'Here you can list all products', 
+    tags: ['Items'],
+    summary: 'API list items',
+    description: 'Here you can list all items', 
     responses: {
       200: {
         description: 'Success',
         content: {
           'application/json': {
             schema: {
-              $ref: '#/schemas/products'
+              $ref: '#/schemas/items'
             }
           }
         }
@@ -26,22 +26,22 @@ export const productsPath = {
     }
   }
 }
-export const productPath = {
+export const itemPath = {
   post: {
-    tags: ['Products'],
-    summary: 'API register product by id category',
-    description: 'To send the products, you must add an array of product ids. activated_dates, must be an array of numbers that correspond to the number of days in a week you want to show this category. If you send an empty array, it should show every day, and if you send it with the number of days, it should show every day you define in the array.', 
+    tags: ['Items'],
+    summary: 'API register item by id product_id',
+    description: 'To send the item, you must add an array of items ids. ', 
     parameters: [{
       in: 'path',
-      name: 'category_id',
-      description: `You need to pass the category id to be able to submit the product to a category.products property within that category. Basically it does a push, so it is required to send the param category_id`,
+      name: 'product_id',
+      description: `You need to pass the product id to be able to submit the product to a product.items property within that product. Basically it does a push, so it is required to send the param product_id`,
       required: true
     }],
     requestBody: {
       content: {
         'application/json': {
           schema: {
-            $ref: '#/schemas/product'
+            $ref: '#/schemas/item'
           }
         }
       }
@@ -52,7 +52,7 @@ export const productPath = {
         content: {
           'application/json': {
             schema: {
-              $ref: '#/schemas/product'
+              $ref: '#/schemas/item'
             }
           }
         }
@@ -69,130 +69,129 @@ export const productPath = {
     }
   }
 }
-export const productByIdPath = {
+export const itemByIdPath = {
   get: {
-    tags: ['Products'],
-    summary: 'API List product by id',
-    description: 'Here you can list a product by id, just send the product id.', 
+    tags: ['Items'],
+    summary: 'API List item by id',
+    description: 'Here you can list a item by id, just send the item id.', 
+    parameters: [{
+      in: 'path',
+      name: 'item_id',
+      description: `You need to pass the item id.`,
+      required: true
+    }],
+
+    responses: {
+      200: {
+        description: 'Success',
+        content: {
+          'application/json': {
+            schema: {
+              $ref: '#/schemas/item'
+            }
+          }
+        }
+      },
+      404: {
+        $ref: '#/components/badRequest'
+      },
+      401: {
+        $ref: '#/components/unauthorized'
+      },
+      500: {
+        $ref: '#/components/serverError'
+      }
+    }
+  }
+}
+export const EditItemPath = {
+  put: {
+    tags: ['Items'],
+    summary: 'API update item',
+    description: 'Here you can edit a item product.', 
+    parameters: [{
+      in: 'path',
+      name: 'id',
+      required: true
+    }],
+    requestBody: {
+      content: {
+        'application/json': {
+          schema: {
+            $ref: '#/schemas/itemParams'
+          }
+        }
+      }
+    },
+    responses: {
+      200: {
+        description: 'Success',
+        content: {
+          'application/json': {
+            schema: {
+              $ref: '#/schemas/item'
+            }
+          }
+        }
+      },
+      404: {
+        $ref: '#/components/badRequest'
+      },
+      401: {
+        $ref: '#/components/unauthorized'
+      },
+      500: {
+        $ref: '#/components/serverError'
+      }
+    }
+  }
+}
+
+export const DeleteItemPath = {
+  delete: {
+    tags: ['Items'],
+    summary: 'API delete item',
+    description: 'Here you can delete a item.', 
+    parameters: [{
+      in: 'path',
+      name: 'item_id',
+      description: `You need to pass the Id of the item you want to delete.`,
+      required: true
+    }],
+
+    responses: {
+      200: {
+        description: 'Success',
+        content: {
+          'application/json': {
+            schema: {
+              $ref: '#/schemas/item'
+            }
+          }
+        }
+      },
+      404: {
+        $ref: '#/components/badRequest'
+      },
+      401: {
+        $ref: '#/components/unauthorized'
+      },
+      500: {
+        $ref: '#/components/serverError'
+      }
+    }
+  }
+}
+
+export const itemsByCategorieIdPath = {
+  get: {
+    tags: ['Items'],
+    summary: 'API List items by Product id',
+    description: 'Here you can list a items of product_id by id, just send the product id.', 
     parameters: [{
       in: 'path',
       name: 'product_id',
       description: `You need to pass the product id.`,
-      required: true
-    }],
-
-    responses: {
-      200: {
-        description: 'Success',
-        content: {
-          'application/json': {
-            schema: {
-              $ref: '#/schemas/product'
-            }
-          }
-        }
-      },
-      404: {
-        $ref: '#/components/badRequest'
-      },
-      401: {
-        $ref: '#/components/unauthorized'
-      },
-      500: {
-        $ref: '#/components/serverError'
-      }
-    }
-  }
-}
-export const EditcategoryPath = {
-  put: {
-    tags: ['Category'],
-    summary: 'API update categories',
-    description: 'Here you can edit a product category. activated_dates, must be an array of numbers that correspond to the number of days in a week you want to show this category. If you send an empty array, it should show every day, and if you send it with the number of days, it should show every day you define in the array.', 
-    parameters: [{
-      in: 'path',
-      name: 'id',
-      description: `You need to pass the Id to be able to edit a category The object IDs products packages are optional. If you don't send the ids, you need to remove and pass po name and category description.`,
-      required: true
-    }],
-    requestBody: {
-      content: {
-        'application/json': {
-          schema: {
-            $ref: '#/schemas/categoryParams'
-          }
-        }
-      }
-    },
-    responses: {
-      200: {
-        description: 'Success',
-        content: {
-          'application/json': {
-            schema: {
-              $ref: '#/schemas/category'
-            }
-          }
-        }
-      },
-      404: {
-        $ref: '#/components/badRequest'
-      },
-      401: {
-        $ref: '#/components/unauthorized'
-      },
-      500: {
-        $ref: '#/components/serverError'
-      }
-    }
-  }
-}
-
-export const DeleteProductPath = {
-  delete: {
-    tags: ['Products'],
-    summary: 'API delete product',
-    description: 'Here you can delete a product product.', 
-    parameters: [{
-      in: 'path',
-      name: 'product_id',
-      description: `You need to pass the Id of the product you want to delete.`,
-      required: true
-    }],
-
-    responses: {
-      200: {
-        description: 'Success',
-        content: {
-          'application/json': {
-            schema: {
-              $ref: '#/schemas/category'
-            }
-          }
-        }
-      },
-      404: {
-        $ref: '#/components/badRequest'
-      },
-      401: {
-        $ref: '#/components/unauthorized'
-      },
-      500: {
-        $ref: '#/components/serverError'
-      }
-    }
-  }
-}
-
-export const productsByCategorieIdPath = {
-  get: {
-    tags: ['Products'],
-    summary: 'API List products by Category id',
-    description: 'Here you can list a products of category_id by id, just send the category id.', 
-    parameters: [{
-      in: 'path',
-      name: 'category_id',
-      description: `You need to pass the category_id id.`,
       required: true
     }],
 

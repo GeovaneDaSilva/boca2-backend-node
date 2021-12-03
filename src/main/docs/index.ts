@@ -1,5 +1,5 @@
 import { productSchema } from './schemas/product/product-schema';
-import { productByIdPath, productPath, productsPath } from './product-path';
+import { DeleteProductPath, productByIdPath, productPath, productsByCategorieIdPath, productsPath } from './product-path';
 import { categoriesActivatedPath, categoriesPath, categoryPath, DeletecategoryPath, EditcategoryPath, GetCategoryByIdPath } from './category-path'
 import { serverError, badRequest, unauthorized } from './components'
 import { loginPath } from './login-path'
@@ -15,6 +15,9 @@ import { uploadSchema } from './schemas/upload/upload-schema'
 import { checkinTokenPath, deleteAccountSPath, getAccountPath, getAccountSFilterPath, getAccountsPath, signupPath, updateAccountPath } from './signup-path'
 import { uploadPath, uploadsPath } from './upload-path'
 import { productParamsSchema } from './schemas/product/product-params-schema';
+import { DeleteItemPath, EditItemPath, itemByIdPath, itemPath, itemsByCategorieIdPath, itemsPath } from './item-path';
+import { itemSchema } from './schemas/item/item-schema';
+import { itemParamsSchema } from './schemas/item/item-params-schema';
 
 export default {
   openapi: '3.0.0',
@@ -47,10 +50,23 @@ export default {
 
     '/uploads/': uploadsPath, // route'
     '/upload/{type}/{id}': uploadPath, // route'
+
     '/products/': productsPath, // route'
+    '/products/{category_id}': productsByCategorieIdPath, // route'
+
     '/product/{category_id}': productPath, // route'
     '/product/{product_id}': productByIdPath, // route'
+    '/product/{product_id}/': DeleteProductPath, // route'
 
+    '/items/': itemsPath, // route'
+    '/items/{product_id}': itemsByCategorieIdPath, // route'
+    '/item/{product_id}': itemPath, // route'
+    '/item/{item_id}': itemByIdPath, // route'
+    '/item/{id}': EditItemPath, // route'
+
+    '/item/{item_id}/': DeleteItemPath, // route'
+
+    
   },
   schemas: {
     account: accountSchema, // response
@@ -67,6 +83,9 @@ export default {
 
     category: categorySchema, // response
     categoryParams: categoryParamsSchema, // params
+
+    item: itemSchema, // response
+    itemParams: itemParamsSchema, // params
 
     upload: uploadSchema, // response
     uploadParams: uploadParamsSchema, 

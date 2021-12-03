@@ -11,6 +11,7 @@ export interface IItemRepository {
   update: (id: ItemModel, body: ItemModel) => Promise<IItemResponse>
   count: (value?: any) => Promise<IItemResponse>
   select: (value?: any) => Promise<IItemResponse>
+  getItemsByProductId?: (id: string) => Promise<IItemResponse>
 
 }
 

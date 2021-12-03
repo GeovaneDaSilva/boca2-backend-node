@@ -1,4 +1,4 @@
-import { ReadyExist } from './../../errors/ready-exist-error';
+import { NoReadyExist, ReadyExist } from './../../errors/ready-exist-error';
 import { IProductRepository } from './../../../data/useCases/protocols/repositories/product-repository';
 import { InvalidParamError } from './../../errors/invalid-email';
 import { badRequest } from './../../helpers/http-helper';
@@ -6,6 +6,8 @@ import { ICategoryRepository } from './../../../data/useCases/protocols/reposito
 import { serverError, success } from "../../helpers/http-helper"
 import { Controller, HttpRequest, HttpResponse, IProduct } from "./product-protocols"
 import { MissingParamError } from '../../errors';
+import { IItem } from '../item/item-protocols';
+import { IItemRepository } from '../../../data/useCases/protocols/repositories/item-repository';
 
 
 export class RegisterProductController implements Controller {
@@ -181,3 +183,4 @@ export class RemoveProductController implements Controller {
     }
   }
 }
+
