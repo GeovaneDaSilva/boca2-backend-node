@@ -8,7 +8,7 @@ const app = express()
 
 setupSwagger(app)
 middlewares(app)
-// dotenv()
+//dotenv()
 routes(app)
 
 export default app //

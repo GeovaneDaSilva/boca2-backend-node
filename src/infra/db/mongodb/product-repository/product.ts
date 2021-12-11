@@ -7,7 +7,7 @@ import { IProductResponse } from '../../../../domain/useCases/product/products'
 
 
 
-const props = 'id tags name items uploads description image activated price details created_at offer_price lb oz text_offer sku category'
+const props = 'id tags name items uploads description image activated price details created_at offer_price lb oz text_offer sku category quantity'
 
 export class ProductMongoRepository implements IProductRepository {
 
