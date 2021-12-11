@@ -75,6 +75,7 @@ export class ProductMongoRepository implements IProductRepository {
         oz,
         text_offer,
         sku,
+        quantity,
         category } = collection
 
         const newCollection: any = { 
@@ -94,6 +95,7 @@ export class ProductMongoRepository implements IProductRepository {
         oz,
         text_offer,
         sku,
+        quantity,
         category}
 
         let product: any = {
