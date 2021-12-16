@@ -1,5 +1,6 @@
 import GroupSchema from '../mongo-schemas/group-schema'
 import AccountSchema from '../mongo-schemas/account-schema'
+import AddressSchema from '../mongo-schemas/address-schema'
 
 
 import { IGroupRepository } from '../../../../data/useCases/protocols/repositories/group-repository'
@@ -61,7 +62,8 @@ export class GroupMongoRepository implements IGroupRepository {
       
       const collection: AddGroup | any = await GroupSchema.findById(id).
       populate({path: 'account',  model: AccountSchema}) 
-      
+     .populate({path: 'address',  model: AddressSchema}) 
+
       if(collection === null) return 
       
       const { _id, orders, address, account } = collection
