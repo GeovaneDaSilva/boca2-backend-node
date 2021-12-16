@@ -29,6 +29,7 @@ export class Dbauth implements Authentication {
         activated: userDB.activated,
         created_date: userDB.created_date,
         activated_at: userDB.activated_at,
+        group: userDB.group,
       }
       const token = await this.iJwt.token(Account.id, Account.role)
 

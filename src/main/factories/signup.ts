@@ -11,6 +11,8 @@ import { JwtAdapter } from '../../utils-adapters/jwt-adapter';
 import { MailProvider } from '../../utils-adapters/nodemailer-adapter';
 import { DbActivatedAccount } from '../../data/useCases/db-account/db-activated-account';
 import { DbDeleteAccount } from '../../data/useCases/db-account/db-delete-account';
+import { GroupMongoRepository } from '../../infra/db/mongodb/group-repository/group';
+import { DbAddGroup } from '../../data/useCases/db-group/db-group';
 
 export const makeSignUpController = (): SignUpController => {
   const salt = 10
@@ -19,7 +21,9 @@ export const makeSignUpController = (): SignUpController => {
   const accountMongoRepository = new AccountMongoRepository()
   const mailProvider = new MailProvider()
   const jwtAdapter = new JwtAdapter(process.env.SEED, process.env.EXPIRES_IN)
-  const dbAddAccount = new DbAddAccount(bcryptAdapter, accountMongoRepository, mailProvider, jwtAdapter)
+  const iGroupRepository = new GroupMongoRepository()
+  const dbAddGroup = new DbAddGroup(iGroupRepository)
+  const dbAddAccount = new DbAddAccount(bcryptAdapter, accountMongoRepository, mailProvider, jwtAdapter, dbAddGroup)
   const signUpController = new SignUpController(emailValidatorAdapter, dbAddAccount, accountMongoRepository)
   return signUpController
 }

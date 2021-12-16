@@ -1,6 +1,8 @@
 import { AccountModel } from '../../../../domain/entities/account'
 import { AddAccountModel } from '../../../../domain/useCases/account/add-account'
 import AccountSchema from '../mongo-schemas/account-schema'
+import GroupSchema from '../mongo-schemas/group-schema'
+
 import { IAccountRepository } from '../../../../data/useCases/protocols/repositories/account-repository'
 
 
@@ -13,10 +15,12 @@ export class AccountMongoRepository implements IAccountRepository {
     try {
       const collection: AddAccountModel | any = await AccountSchema.create(accountData)
 
-      const { _id, name, email, last_name, phone, image, role, activated, created_date } = collection
-      const newCollection: any = { id: _id, name: name, image: image, last_name, email: email, role: role, phone, activated, created_date: created_date }
+      const { _id, name, email, last_name, phone, image, role, activated, group, created_date } = collection
+      const newCollection: any = { id: _id, name: name, image: image, group: group, last_name, email: email, role: role, phone, activated, created_date: created_date }
 
       await collection.save()
+
+
       return newCollection
     } catch (error) {
       console.log(error)
@@ -34,7 +38,7 @@ export class AccountMongoRepository implements IAccountRepository {
 
   async getOne (email: string): Promise<AccountModel> {
     try {
-      const collection: AddAccountModel | any = await AccountSchema.findOne({ email: email }, )
+      const collection: AddAccountModel | any = await AccountSchema.findOne({ email: email } )
 
       return collection
     } catch (error) {
@@ -45,8 +49,8 @@ export class AccountMongoRepository implements IAccountRepository {
   async getById (id: string): Promise<AccountModel> {
     try {
       const collection: AddAccountModel | any = await AccountSchema.findById(id, props)
-      const { _id, name, email, last_name, phone, image, role, activated, activated_at, created_date } = collection
-      const newCollection: any = { id: _id, name: name, image: image, last_name, email: email, role: role, phone, activated, activated_at, created_date: created_date }
+      const { _id, name, email, last_name, phone, image, role, activated, group, activated_at, created_date } = collection
+      const newCollection: any = { id: _id, name: name, image: image, group: group, last_name, email: email, role: role, phone, activated, activated_at, created_date: created_date }
 
       return newCollection
     } catch (error) {
