@@ -1,8 +1,5 @@
-import { badRequest } from './../../helpers/http-helper';
 import { IGroupRepository } from './../../../data/useCases/protocols/repositories/group-repository';
-import { IItemRepository } from "../../../data/useCases/protocols/repositories/item-repository"
-import { IProductRepository } from "../../../data/useCases/protocols/repositories/product-repository"
-import { InvalidParamError, MissingParamError, NoReadyExist, ReadyExist } from "../../errors"
+import { MissingParamError, NoReadyExist, ReadyExist } from "../../errors"
 import { badRequest, serverError, success } from "../../helpers/http-helper"
 import { AddAddress, Controller, HttpRequest, HttpResponse } from "./address-protocols"
 
