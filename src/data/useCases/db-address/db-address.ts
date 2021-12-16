@@ -12,6 +12,7 @@ export class DbAddAddress implements AddAddress {
 
   async add (addressData: AddressModel): Promise<IAddress> {
     
+    
     const addressDb = await this.iAddressRepository.add(addressData)
 
     return new Promise(resolve => resolve(
@@ -28,10 +29,11 @@ export class DbAddAddress implements AddAddress {
     ))
   }
 
-  async update (address: AddressModel): Promise<IAddress> {
-    
+  async update (id: string, body: AddressModel): Promise<IAddress> {
+
+    const updatedAddress = await this.iAddressRepository.update(id, body)
     return new Promise(resolve => resolve(
-      address
+      updatedAddress
       
     ))
   }

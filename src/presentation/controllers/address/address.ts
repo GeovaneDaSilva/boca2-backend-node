@@ -1,7 +1,8 @@
 import { IGroupRepository } from './../../../data/useCases/protocols/repositories/group-repository';
-import { MissingParamError, NoReadyExist, ReadyExist } from "../../errors"
+import { InvalidParamError, MissingParamError, NoReadyExist, ReadyExist } from "../../errors"
 import { badRequest, serverError, success } from "../../helpers/http-helper"
 import { AddAddress, Controller, HttpRequest, HttpResponse } from "./address-protocols"
+import { IAddressRepository } from '../../../data/useCases/protocols/repositories/address-repository';
 
 
 
@@ -17,7 +18,7 @@ export class RegisterAddressController implements Controller {
     try {
 
       const group_id = httpRequest.params.group_id
-      const { street, city, state, zip, country, cord_address } = httpRequest.body
+      const { street, city, state, zip, country, cord_address, pre_default } = httpRequest.body
 
       const requiredField = ['street']
       for (const field of requiredField) {
@@ -31,17 +32,14 @@ export class RegisterAddressController implements Controller {
       if(!getGroupDb) return badRequest(new NoReadyExist(group_id))
       
 
-      const newAddress: any = {
+      let address: any = {
         street: street || null,
         city: city || null,
         state: state || null,
         zip: zip || null,
         country: country || null,
+        pre_default: pre_default,
         cord_address: cord_address || null,
-
-      }
-      const address = {
-        address: newAddress,
         group_customer: getGroupDb.id,
         created_at: new Date()
       }
@@ -56,50 +54,29 @@ export class RegisterAddressController implements Controller {
   }
 }
 
-/*
-export class ListItemsController implements Controller {
+export class UpdateAddressController implements Controller {
+  
+  constructor(
+    private readonly iAddAddress: AddAddress, 
+    private readonly iAddressRepository: IAddressRepository){
 
-  constructor(private readonly iItem: IItem,
-    private readonly iItemRepository: IItemRepository){
-    this.iItemRepository = iItemRepository
-    this.iItem = iItem
-
+    this.iAddAddress = iAddAddress
+    this.iAddressRepository = iAddressRepository
   }
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
+  
+      const address_id = httpRequest.params.address_id
+      const iAddressDb: any = await this.iAddressRepository.getById(address_id)
 
-      const itemsDb = await this.iItemRepository.getAll()
-      const DTOItems = await this.iItem.getAll(itemsDb)
-      
-      return success(DTOItems)
-    } catch (error) {
-      console.log(error)
-      return serverError(error)
-    }
-  }
-}
 
-export class UpdateItemController implements Controller {
-
-  constructor(private readonly iItem: IItem,
-    private readonly iItemRepository: IItemRepository){
-    this.iItem = iItem
-    this.iItemRepository = iItemRepository
-
-  }
-
-  async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
-    try {
-
-      const item_id = httpRequest.params.item_id
-      const itemDb: any = await this.iItemRepository.getById(item_id)
-
-      if(!itemDb) return badRequest(new InvalidParamError(item_id))
+      if(!iAddressDb) return badRequest(new InvalidParamError(address_id))
     
-      const DTOItem = await this.iItem.update(itemDb.item.id, httpRequest.body)
       
-      return success(DTOItem)
+      const DTOAddress = await this.iAddAddress.update( iAddressDb.id, httpRequest.body)
+      
+      return success(DTOAddress)
     } catch (error) {
       console.log(error)
       return serverError(error)
@@ -107,86 +84,3 @@ export class UpdateItemController implements Controller {
   }
 }
 
-export class GetItemController implements Controller {
-
-  constructor(private readonly iItem: IItem,
-    private readonly iItemRepository: IItemRepository){
-    this.iItem = iItem
-    this.iItemRepository = iItemRepository
-
-  }
-
-  async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
-    try {
-
-      const item_id = httpRequest.params.item_id
-      const itemDb: any = await this.iItemRepository.getById(item_id)
-
-      if(!itemDb) return badRequest(new InvalidParamError(item_id))
-    
-      const DTOItem = await this.iItem.get(itemDb)
-      
-      return success(DTOItem)
-    } catch (error) {
-      console.log(error)
-      return serverError(error)
-    }
-  }
-}
-
-export class RemoveItemController implements Controller {
-
-  constructor(private readonly iItem: IItem,
-    private readonly iItemRepository: IItemRepository){
-    this.iItem = iItem
-    this.iItemRepository = iItemRepository
-
-  }
-
-  async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
-    try {
-
-      const item_id = httpRequest.params.item_id
-      const itemDb: any = await this.iItemRepository.getById(item_id)
-
-      if(!itemDb) return badRequest(new InvalidParamError(item_id))
-    
-      const DTOItem = await this.iItem.remove(itemDb)
-      
-      return success(DTOItem)
-    } catch (error) {
-      console.log(error)
-      return serverError(error)
-    }
-  }
-}
-
-export class GetItemsProductByIdController implements Controller {
-  constructor(private readonly iItem: IItem, private readonly iItemRepository: IItemRepository){
-    this.iItem = iItem
-    this.iItemRepository = iItemRepository
-  }
-
-  async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
-    try {
-
-      const product_id = httpRequest.params.product_id
-      
-
-      const productReadyExist = await this.iItemRepository.getItemsByProductId(product_id)
-                  
-      if (!productReadyExist) {
-        return badRequest(new NoReadyExist(product_id))
-      }
-      
-      
-
-      const DTOProduct = await this.iItem.get(productReadyExist)
-      return success(DTOProduct)
-    } catch (error) {
-      console.log(error)
-      return serverError(error)
-    }
-  }
-}
-*/

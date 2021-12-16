@@ -2,7 +2,13 @@ import mongoose, { Schema } from 'mongoose'
 import uniqueValidator from 'mongoose-unique-validator'
 
 const AddressSchema = new Schema({
-  address:{ type: Array },
+  street: String,
+  city: String,
+  state: String,
+  zip: String,
+  country: String,
+  pre_default: String,
+  cord_address: Object,
   group_customer: { type: Schema.Types.ObjectId },
   created_at: Date,
   

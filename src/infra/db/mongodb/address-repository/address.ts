@@ -1,7 +1,6 @@
 import { AddressModel } from './../../../../domain/entities/address';
 import { IAddressRepository } from './../../../../data/useCases/protocols/repositories/address-repository';
 import GroupSchema from '../mongo-schemas/group-schema'
-import AccountSchema from '../mongo-schemas/account-schema'
 
 
 import { AddGroup, IGroup } from '../../../../domain/useCases/group/group'
@@ -11,7 +10,7 @@ import AddressSchema from '../mongo-schemas/address-schema';
 
 
 
-const props = 'id tags name items uploads description image activated price details created_at offer_price lb oz text_offer sku product'
+const props = 'id street city state zip country pre_default cord_address group_customer created_at orders '
 
 export class AddressMongoRepository implements IAddressRepository {
 
@@ -19,9 +18,16 @@ export class AddressMongoRepository implements IAddressRepository {
     try {      
       
       const collection: IAddress | any  = await AddressSchema.create(addressData)
-      const { _id, address, group_customer, created_at } = collection
-
-      const newCollection: any  = {id: _id, address, group_customer, created_at }
+      const { _id, orders, address, city, state, zip, country, pre_default, cord_address, group_customer, created_at } = collection
+      const newCollection = {
+        id: _id, 
+        orders: orders || null, 
+        address, 
+        city, state, zip, 
+        country, pre_default, 
+        cord_address, 
+        group_customer, 
+        created_at }
 
       const groupDB:  any = await GroupSchema.findById(newCollection.group_customer)
 
@@ -70,11 +76,18 @@ export class AddressMongoRepository implements IAddressRepository {
 
   async getById (id: string): Promise<IAddress> {
     try {
-      const collection: AddGroup | any = await GroupSchema.findById(id).
-      populate({path: 'account',  model: AccountSchema}) 
-      
-      const { _id, orders, address, account } = collection
-      const newCollection = {id: _id, orders, address, account}
+      const collection: AddGroup | any = await AddressSchema.findById(id)
+      if(collection === null) return 
+      const { _id, orders, address, city, state, zip, country, pre_default, cord_address, group_customer, created_at } = collection
+      const newCollection = {
+        id: _id, 
+        orders: orders || null, 
+        address, 
+        group_customer, 
+        city, state, zip, 
+        country, pre_default, 
+        cord_address, 
+        created_at }
         
       return newCollection
     } catch (error) {
@@ -84,7 +97,7 @@ export class AddressMongoRepository implements IAddressRepository {
 
   async update (id: string, body: any): Promise<IAddress> {
     try {
-      const collection: GroupModel | any = await GroupSchema.findByIdAndUpdate(id, body, {new: true, useFindAndModify: false})
+      const collection: GroupModel | any = await AddressSchema.findByIdAndUpdate(id, body, {new: true, useFindAndModify: false})
   
         
         

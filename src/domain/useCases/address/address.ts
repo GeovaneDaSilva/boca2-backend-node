@@ -10,6 +10,6 @@ export interface IAddress {
 export interface AddAddress {
   add: (data: AddressModel) => Promise<IAddress>
   get: (id?: AddressModel) => Promise<IAddress>
-  update: (id: AddressModel) => Promise<IAddress>
-  delete: (id: AddressModel) => Promise<IAddress>
+  update: (id: string, body: AddressModel) => Promise<IAddress>
+  delete: (id: AddressModel ) => Promise<IAddress>
 }
