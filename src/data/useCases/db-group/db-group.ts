@@ -21,7 +21,7 @@ export class DbAddGroup implements AddGroup {
     
     
     return new Promise(resolve => resolve(
-      data
+      groupDb
       
     ))
   }
