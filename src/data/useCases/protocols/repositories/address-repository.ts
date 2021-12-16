@@ -1,10 +1,9 @@
-import { AccountModel } from '../../../../domain/entities/account'
-import { AddAddress } from '../../../../domain/useCases/address/address'
-import { IAddress } from '../../../../utils-adapters/stripe-payment'
+import { IAddress } from '../../../../domain/useCases/address/address';
+import { AddressModel } from './../../../../domain/entities/address';
 
 export interface IAddressRepository {
-  add: (accountData: AddAddress) => Promise<IAddress>
-  getAll: () => Promise<AccountModel>
+  add: (addressData: AddressModel) => Promise<IAddress>
+  getAll: () => Promise<IAddress>
   getOne: (email: string) => Promise<IAddress>
   getById: (id: string) => Promise<IAddress>
   delete: (id: string) => Promise<IAddress>

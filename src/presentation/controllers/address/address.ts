@@ -1,3 +1,5 @@
+import { badRequest } from './../../helpers/http-helper';
+import { IGroupRepository } from './../../../data/useCases/protocols/repositories/group-repository';
 import { IItemRepository } from "../../../data/useCases/protocols/repositories/item-repository"
 import { IProductRepository } from "../../../data/useCases/protocols/repositories/product-repository"
 import { InvalidParamError, MissingParamError, NoReadyExist, ReadyExist } from "../../errors"
@@ -8,26 +10,48 @@ import { AddAddress, Controller, HttpRequest, HttpResponse } from "./address-pro
 
 export class RegisterAddressController implements Controller {
   
-  constructor(private readonly iAddAddress: AddAddress){
+  constructor(private readonly iAddAddress: AddAddress, private readonly iGroupRepository: IGroupRepository){
 
     this.iAddAddress = iAddAddress
+    this.iGroupRepository = iGroupRepository
   }
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
 
       const group_id = httpRequest.params.group_id
+      const { street, city, state, zip, country, cord_address } = httpRequest.body
 
-      console.log(group_id);
-      
-      const requiredField = ['address']
+      const requiredField = ['street']
       for (const field of requiredField) {
         if (!httpRequest.body[field]) {
           return badRequest(new MissingParamError(field))
         }
       }
 
-      return success('address')
+      const getGroupDb = await this.iGroupRepository.getById(group_id)
+
+      if(!getGroupDb) return badRequest(new NoReadyExist(group_id))
+      
+
+      const newAddress: any = {
+        street: street || null,
+        city: city || null,
+        state: state || null,
+        zip: zip || null,
+        country: country || null,
+        cord_address: cord_address || null,
+
+      }
+      const address = {
+        address: newAddress,
+        group_customer: getGroupDb.id,
+        created_at: new Date()
+      }
+
+      const DTOAddress = await this.iAddAddress.add(address)
+
+      return success(DTOAddress)
     } catch (error) {
       console.log(error)
       return serverError(error)

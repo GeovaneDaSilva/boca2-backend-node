@@ -4,13 +4,16 @@ import { ItemMongoRepository } from "../../infra/db/mongodb/item-repository/item
 import { ProductMongoRepository } from "../../infra/db/mongodb/product-repository/product"
 import { GetItemController, GetItemsProductByIdController, ListItemsController, RegisterItemController, RemoveItemController, UpdateItemController } from "../../presentation/controllers/item/item"
 import { RegisterAddressController } from '../../presentation/controllers/address/address';
-import { DbAddAddress } from '../../data/useCases/db-address/db-group';
+import { GroupMongoRepository } from '../../infra/db/mongodb/group-repository/group';
+import { AddressMongoRepository } from '../../infra/db/mongodb/address-repository/address';
+import { DbAddAddress } from '../../data/useCases/db-address/db-address';
 
 
 export const makeRegisterAddressController = (): RegisterAddressController => {
-
-  const dbAddAddress = new DbAddAddress()
-  const registerAddressController = new RegisterAddressController(dbAddAddress)
+  const groupMongoRepository = new GroupMongoRepository()
+  const addressMongoRepository = new AddressMongoRepository()
+  const dbAddAddress = new DbAddAddress(addressMongoRepository)
+  const registerAddressController = new RegisterAddressController(dbAddAddress, groupMongoRepository)
   return registerAddressController
 }
 

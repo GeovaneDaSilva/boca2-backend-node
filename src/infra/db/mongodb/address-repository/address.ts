@@ -1,35 +1,48 @@
+import { AddressModel } from './../../../../domain/entities/address';
+import { IAddressRepository } from './../../../../data/useCases/protocols/repositories/address-repository';
 import GroupSchema from '../mongo-schemas/group-schema'
 import AccountSchema from '../mongo-schemas/account-schema'
 
 
-import { IGroupRepository } from '../../../../data/useCases/protocols/repositories/group-repository'
 import { AddGroup, IGroup } from '../../../../domain/useCases/group/group'
 import { GroupModel } from '../../../../domain/entities/group'
+import { IAddress } from '../../../../domain/useCases/address/address';
+import AddressSchema from '../mongo-schemas/address-schema';
 
 
 
 const props = 'id tags name items uploads description image activated price details created_at offer_price lb oz text_offer sku product'
 
-export class GroupMongoRepository implements IGroupRepository {
+export class AddressMongoRepository implements IAddressRepository {
 
-  async add (groupData: AddGroup): Promise<IGroup> {
-    try {
-            
-      const collection: IGroup | any = await GroupSchema.create(groupData)
-      await collection.save()
+  async add (addressData: AddressModel): Promise<IAddress> {
+    try {      
       
-      const { account } = collection
+      const collection: IAddress | any  = await AddressSchema.create(addressData)
+      const { _id, address, group_customer, created_at } = collection
+
+      const newCollection: any  = {id: _id, address, group_customer, created_at }
+
+      const groupDB:  any = await GroupSchema.findById(newCollection.group_customer)
+
+      console.log('aquiii', groupDB.address);
       
+      
+      const resultPush = await groupDB.address.push(newCollection.id)
 
-      await AccountSchema.findByIdAndUpdate(account, {group: collection._id})
+      await groupDB.save()
 
-      return collection
+
+      console.log('send Push', resultPush);
+
+
+      return newCollection
     } catch (error) {
       console.log(error)
     }
   }
 
-  async getAll (): Promise<IGroup> {
+  async getAll (): Promise<IAddress> {
     try {
       const collection: AddGroup | any = await GroupSchema.find({}, props)
       //.populate({path: 'category', model: CategorySchema})
@@ -45,7 +58,7 @@ export class GroupMongoRepository implements IGroupRepository {
     }
   }
 
-  async getOne (name: string): Promise<IGroup> {
+  async getOne (name: string): Promise<IAddress> {
     try {
       const collection: AddGroup | any = await GroupSchema.findOne({ sku: name }, props)
         
@@ -55,14 +68,10 @@ export class GroupMongoRepository implements IGroupRepository {
     }
   }
 
-  async getById (id: string): Promise<IGroup> {
+  async getById (id: string): Promise<IAddress> {
     try {
-      
-      
       const collection: AddGroup | any = await GroupSchema.findById(id).
       populate({path: 'account',  model: AccountSchema}) 
-      
-      if(collection === null) return 
       
       const { _id, orders, address, account } = collection
       const newCollection = {id: _id, orders, address, account}
@@ -73,7 +82,7 @@ export class GroupMongoRepository implements IGroupRepository {
     }
   }
 
-  async update (id: string, body: any): Promise<IGroup> {
+  async update (id: string, body: any): Promise<IAddress> {
     try {
       const collection: GroupModel | any = await GroupSchema.findByIdAndUpdate(id, body, {new: true, useFindAndModify: false})
   
@@ -85,7 +94,7 @@ export class GroupMongoRepository implements IGroupRepository {
     }
   }
 
-  async delete (id: string): Promise<IGroup> {
+  async delete (id: string): Promise<IAddress> {
     try {
 
       const collectionRemoveGroup: GroupModel | any = await GroupSchema.findByIdAndDelete(id)
@@ -97,7 +106,7 @@ export class GroupMongoRepository implements IGroupRepository {
     }
   }
 
-  async count (value?: any): Promise<IGroup> {
+  async count (value?: any): Promise<IAddress> {
     try {
       const collection: GroupModel | any = await GroupSchema.count(value)
       return collection
@@ -106,7 +115,7 @@ export class GroupMongoRepository implements IGroupRepository {
     }
   }
 
-  async select (value: any): Promise<IGroup> {
+  async select (value: any): Promise<IAddress> {
     try {
       const collection: GroupModel | any = await GroupSchema.find(value, props)
       return collection
@@ -115,7 +124,7 @@ export class GroupMongoRepository implements IGroupRepository {
     }
   }
 
-  async getItemsByProductId (id: string): Promise<IGroup> {
+  async getItemsByProductId (id: string): Promise<IAddress> {
     try {
       const collection: IGroup | any = await GroupSchema.findById(id, props)
 

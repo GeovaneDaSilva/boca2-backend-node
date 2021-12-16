@@ -1,3 +1,4 @@
+import { IAddressRepository } from './../protocols/repositories/address-repository';
 
 import { AddressModel } from '../../../domain/entities/address'
 import { AddAddress, IAddress } from '../../../domain/useCases/address/address'
@@ -5,11 +6,16 @@ import { AddAddress, IAddress } from '../../../domain/useCases/address/address'
 
 export class DbAddAddress implements AddAddress {
   
+  constructor(private readonly iAddressRepository: IAddressRepository) {
+    this.iAddressRepository = iAddressRepository
+  }
 
-  async create (data: AddressModel): Promise<IAddress> {
+  async add (addressData: AddressModel): Promise<IAddress> {
     
+    const addressDb = await this.iAddressRepository.add(addressData)
+
     return new Promise(resolve => resolve(
-      data
+      addressDb
       
     ))
   }
