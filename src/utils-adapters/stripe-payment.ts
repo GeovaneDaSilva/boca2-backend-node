@@ -41,7 +41,7 @@ export interface IStripe {
   description: any;
 }
 
-const stripe = new Stripe("sk_test_iD8vZF2T86dV7QvLABg4AxCM", {
+const stripe = new Stripe(stripeSecretKey, {
   apiVersion: "2020-08-27",
 });
 
