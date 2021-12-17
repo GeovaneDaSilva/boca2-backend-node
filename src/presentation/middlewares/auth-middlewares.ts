@@ -17,13 +17,10 @@ export class AuthenticationToken {
       
 
       const account: any = jwt.verify(token, process.env.SEED)
-      
 
       const { id } = account
-    
 
       const accountDB = await AccountSchema.findById(id)
-      
 
       if (!accountDB) {
         return res.status(403).json({
@@ -43,23 +40,55 @@ export class AuthenticationToken {
     }
   }
 
-  veryfyRole_Admin (req: Request, res: Response, next: NextFunction) {
-    const user = req.user
+  async veryfyRole_Admin (req: Request, res: Response, next: NextFunction) {
+    try {
+      const token = req.header('x-access-token')
+      
+      if (!token) {
+        return res.status(403).json({
+          ok: false,
+          message: 'Token is required'
+        })
+      }
+      
 
-    if (user.role === 'ADMIN_ROLE') {
+      const account: any = jwt.verify(token, process.env.SEED)
 
-    } else {
-      return res.status(401).json({
-        ok: false,
-        mensaje: {
-          mensaje: 'Must be authenticated ADMIN_ ROLE'
+      const { id } = account
 
-        }
+      const accountDB: any = await AccountSchema.findById(id)
 
-      })
+      if (!accountDB) {
+        return res.status(403).json({
+          ok: false,
+          mensaje: {
+            mensaje: 'Must be authenticated ADMIN_ ROLE User no exist'
+          }
+        })
+      }
+
+      if(accountDB.role !== 'ADMIN_ROLE') {
+        return res.status(403).json({
+          ok: false,
+          mensaje: {
+            mensaje: 'Must be authenticated ADMIN_ ROLE User no exist'
+          }
+        })
+      }
+      
+      
+
+
+      next()
+    } catch (error) {
+      if (error) {
+        res.status(403).json({
+          error
+        })
+      }
     }
-    next() // Is very important for excute of the function
   }
+  
 }
 
 export default new AuthenticationToken()

@@ -7,7 +7,7 @@ export class ReadyExist extends Error {
 }
 
 export class NoReadyExist extends Error {
-  constructor (paramName: string) {
+  constructor (paramName?: string) {
     super(`This does not exist in our database: ${paramName}`)
 
     this.name = `This does not exist in our database: ${paramName}`

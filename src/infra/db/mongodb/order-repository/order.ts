@@ -1,9 +1,11 @@
+
 import { IOrder } from './../../../../domain/useCases/order/order';
 
 import { IOrderRepository } from '../../../../data/useCases/protocols/repositories/order-repository';
 import { OrderModel } from '../../../../domain/entities/order';
 import OrderSchema from '../mongo-schemas/order-schema';
 import GroupSchema from '../mongo-schemas/group-schema';
+import ProductSchema from '../mongo-schemas/product-schema';
 
 
 
@@ -33,9 +35,13 @@ export class OrderMongoRepository implements IOrderRepository {
 
   async getAll (): Promise<IOrder> {
     try {
-      
-      
-      return 
+      const collection: IOrder | any = await OrderSchema.find()
+      const count: IOrder | any =  await OrderSchema.count()
+      let orders: any = {
+        orders: collection, 
+        orders_total: count
+      }
+      return orders
     } catch (error) {
       console.log(error)
     }
@@ -95,8 +101,16 @@ export class OrderMongoRepository implements IOrderRepository {
 
   async select (value: any): Promise<IOrder> {
     try {
-     
-      return 
+      
+      const collection: IOrder | any = await OrderSchema.find({group_customer: value})
+      const count: IOrder | any =  await OrderSchema.count()
+
+      let orders: any = {
+        orders: collection, 
+        orders_total: count
+      }
+      return orders
+
     } catch (error) {
       console.log(error)
     }
@@ -104,8 +118,6 @@ export class OrderMongoRepository implements IOrderRepository {
 
   async getItemsByProductId (id: string): Promise<IOrder> {
     try {
-
-
 
       return 
     } catch (error) {
