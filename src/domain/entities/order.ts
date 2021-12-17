@@ -1,10 +1,15 @@
 
 export class OrderModel {
   id?: string
-  name: string
+  checkout: any
   products: any
-  item: any
-  id_client: any
-  created_date: Date
+  items?: any
+  group_customer: any
+  address: any
+  created_at: Date
+  payment: boolean
+  drive_id?: any
+  cancelled: boolean
+  total: number
 
 }

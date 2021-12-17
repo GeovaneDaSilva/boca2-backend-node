@@ -1,8 +1,4 @@
-import { DbAddItem } from './../../data/useCases/db-item/db-item';
-import { DbAddProduct } from "../../data/useCases/db-product/db-product"
-import { ItemMongoRepository } from "../../infra/db/mongodb/item-repository/item"
-import { ProductMongoRepository } from "../../infra/db/mongodb/product-repository/product"
-import { GetItemController, GetItemsProductByIdController, ListItemsController, RegisterItemController, RemoveItemController, UpdateItemController } from "../../presentation/controllers/item/item"
+
 import { RegisterAddressController, UpdateAddressController } from '../../presentation/controllers/address/address';
 import { GroupMongoRepository } from '../../infra/db/mongodb/group-repository/group';
 import { AddressMongoRepository } from '../../infra/db/mongodb/address-repository/address';

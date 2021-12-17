@@ -4,6 +4,7 @@ import { IPayment } from "../../../utils-adapters/stripe-payment"
 import { serverError, success } from "../../helpers/http-helper"
 import { Controller, HttpRequest, HttpResponse, ICheckout } from "./checkout-protocols"
 import { ErrorMessage } from '../../errors/errorMessage';
+import { MissingParamError } from '../../errors';
 
 export class CheckoutController implements Controller {
 
@@ -15,8 +16,15 @@ export class CheckoutController implements Controller {
     async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
       try {
        
-        const { amount, currency, name, detail,  card: {number, exp_month, exp_year, cvc} } = httpRequest.body
+        const { amount, currency, name, detail, products, items, group_customer, address,  card: {number, exp_month, exp_year, cvc}, } = httpRequest.body
         
+        const requiredField = ['amount', 'products', 'group_customer', 'address', 'card']
+        for (const field of requiredField) {
+          if (!httpRequest.body[field]) {
+            return badRequest(new MissingParamError(field))
+          }
+        }
+
         let card: any = {card: {}};
             card.card = {
                 number: number,
@@ -25,14 +33,17 @@ export class CheckoutController implements Controller {
                 cvc: cvc, 
             }
 
+        let order: any = {
+          products, items, group_customer, address
+        }
 
         const token: any = await this.iPayment.creatCard(card)
 
         const payment = await this.iPayment.pay({
-            amount, currency, source: token.id, description: `${name} - ${detail}`
+            amount, currency: 'USD', source: token.id, description: `${name} - ${detail}`
         })
         
-        const checkoutOrder = await this.iCheckout.toPay(payment)
+        const checkoutOrder = await this.iCheckout.toPay(payment, order)
         
         return success(checkoutOrder)
       } catch (error) {
