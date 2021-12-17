@@ -3,8 +3,14 @@ import uniqueValidator from 'mongoose-unique-validator'
 
 const OrderSchema = new Schema({
   checkout: Object,
-  products:[{ type: Schema.Types.ObjectId, ref:'Products'}],
-  items:[{ type: Schema.Types.ObjectId, ref:'Items'}],
+  products:[{
+    _id: { type: Schema.Types.ObjectId, ref:'Products'},
+    quantity: Number
+  }],
+  items:[{
+    _id: { type: Schema.Types.ObjectId, ref:'Items'},
+    quantity: Number
+  }],
   address: { type: Schema.Types.ObjectId },
   payment: Boolean,
   cancelled: Boolean,
