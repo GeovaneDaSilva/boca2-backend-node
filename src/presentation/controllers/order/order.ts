@@ -18,7 +18,7 @@ export class RegisterOrderController implements Controller {
       
 
       
-      let { checkout, products, item, group_customer, address, created_at, payment, drive_id, cancelled, total } = httpRequest.body
+      let { checkout, products, items, group_customer, address, created_at, payment, drive_id, cancelled, total } = httpRequest.body
 
       const requiredField = ['checkout', 'products', 'group_customer', 'address', 'total' ]
 
@@ -29,7 +29,7 @@ export class RegisterOrderController implements Controller {
       }
       
 
-      const DTOOrder = await this.iAorder.add({checkout, products, item, group_customer, address, payment, drive_id, cancelled, created_at: new Date, total})
+      const DTOOrder = await this.iAorder.add({checkout, products, items, group_customer, address, payment, drive_id, cancelled, created_at: new Date, total})
       
 
       return success(DTOOrder)
