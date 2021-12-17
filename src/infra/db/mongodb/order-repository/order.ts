@@ -103,11 +103,10 @@ export class OrderMongoRepository implements IOrderRepository {
     try {
       
       const collection: IOrder | any = await OrderSchema.find({group_customer: value})
-      const count: IOrder | any =  await OrderSchema.count()
-
+    
       let orders: any = {
         orders: collection, 
-        orders_total: count
+
       }
       return orders
 
