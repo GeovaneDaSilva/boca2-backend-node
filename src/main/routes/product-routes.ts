@@ -5,7 +5,7 @@ import { makeGetProductController, makeListProductsController, makeRegisterProdu
 
 export default (router: Router): void => {
   router.post('/product/:category_id', AuthenticationToken.veryfyRole_Admin, AdaptRoute(makeRegisterProductController()))
-  router.get('/products/', AuthenticationToken.veryfyToken, AdaptRoute(makeListProductsController()))
+  router.get('/products/', AdaptRoute(makeListProductsController()))
   router.put('/product/:product_id', AuthenticationToken.veryfyRole_Admin, AdaptRoute(makeUpdateProductController()))
   router.get('/product/:product_id', AuthenticationToken.veryfyToken, AdaptRoute(makeGetProductController()))
   router.delete('/product/:product_id', AuthenticationToken.veryfyRole_Admin, AdaptRoute(makeRemoveProductController()))
