@@ -6,7 +6,7 @@ import { makeCreateCategoryController, makeDeleteCategoryController, makeEditCat
 export default (router: Router): void => {
   router.post('/category', AuthenticationToken.veryfyRole_Admin, AdaptRoute(makeCreateCategoryController()))
   router.get('/category/:id', AuthenticationToken.veryfyToken, AdaptRoute(makeListCategoryController()))
-  router.get('/categories', AuthenticationToken.veryfyToken, AdaptRoute(makeListCategoriesController()))
+  router.get('/categories', AdaptRoute(makeListCategoriesController()))
   router.put('/category/:id', AuthenticationToken.veryfyRole_Admin, AdaptRoute(makeEditCategoryController()))
   router.delete('/category/:category_id', AuthenticationToken.veryfyRole_Admin, AdaptRoute(makeDeleteCategoryController()))
 
