@@ -10,8 +10,8 @@ export default (router: Router): void => {
   router.put('/category/:id', AuthenticationToken.veryfyRole_Admin, AdaptRoute(makeEditCategoryController()))
   router.delete('/category/:category_id', AuthenticationToken.veryfyRole_Admin, AdaptRoute(makeDeleteCategoryController()))
 
-  router.get('/products/:category_id', AuthenticationToken.veryfyToken, AdaptRoute(makeGetProductsCategoryByIdController()))
-  router.get('/categories/activated', AuthenticationToken.veryfyToken, AdaptRoute(makeSelectCategoriesController()))
+  router.get('/products/:category_id', AdaptRoute(makeGetProductsCategoryByIdController()))
+  router.get('/categories/activated', AdaptRoute(makeSelectCategoriesController()))
 
 }
 // AuthenticationToken.veryfyToken, AuthenticationToken.veryfyRole_Admin,

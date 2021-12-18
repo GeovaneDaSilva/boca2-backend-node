@@ -6,14 +6,14 @@ import { makeGetItemController, makeGetItemsProductByIdController, makeListItems
 
 export default (router: Router): void => {
   router.post('/group/:account_id',AuthenticationToken.veryfyToken, AdaptRoute(makeRegisterGroupController()))
-  router.get('/account/:group_id', AuthenticationToken.veryfyToken, AdaptRoute(makeListGroupController()))
+  router.get('/account/:group_id',  AdaptRoute(makeListGroupController()))
   
-  router.get('/items/', AuthenticationToken.veryfyToken, AdaptRoute(makeListItemsController()))
+  router.get('/items/',  AdaptRoute(makeListItemsController()))
   
-  router.get('/item/:item_id', AuthenticationToken.veryfyToken, AdaptRoute(makeGetItemController()))
+  router.get('/item/:item_id', AdaptRoute(makeGetItemController()))
   router.delete('/item/:item_id', AuthenticationToken.veryfyRole_Admin, AdaptRoute(makeRemoveItemController()))
   
-  router.get('/items/:product_id', AuthenticationToken.veryfyToken, AdaptRoute(makeGetItemsProductByIdController()))
+  router.get('/items/:product_id', AdaptRoute(makeGetItemsProductByIdController()))
 
 
 }
