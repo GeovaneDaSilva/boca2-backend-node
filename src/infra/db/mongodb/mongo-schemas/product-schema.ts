@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose'
 import uniqueValidator from 'mongoose-unique-validator'
 
-const ProductSchema = new Schema({
+const ProducSchema = new Schema({
   name: String,
   description: String,
   price: Number,
@@ -22,6 +22,6 @@ const ProductSchema = new Schema({
   uploads: Array,
 })
 
-ProductSchema.plugin(uniqueValidator, { message: 'Error, expected {VALUE} to be unique.' })
+ProducSchema.plugin(uniqueValidator, { message: 'Error, expected {VALUE} to be unique.' })
 
-export default mongoose.model('Product', ProductSchema)
+export default mongoose.model('Product', ProducSchema)

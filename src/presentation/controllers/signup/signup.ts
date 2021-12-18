@@ -238,13 +238,17 @@ export class DeleteAccountController implements Controller {
     private readonly deleteAccount: DeleteAccount) {
     this.iAccountRepository = iAccountRepository
     this.deleteAccount = deleteAccount
-  }
 
+    
+  }
+  
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-
       
       const account_id = await httpRequest.params.account_id
+
+      
+      
       
       const accountDb: any = await this.iAccountRepository.getById(account_id)
       

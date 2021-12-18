@@ -1,4 +1,3 @@
-import { RedisCache } from './../../utils-adapters/redis-cache';
 import { DbGetAccount } from './../../data/useCases/db-account/db-get-account';
 import { ActivatedAccountController, DeleteAccountController, GetAccountController, GetAccountsActivatedsController, GetAccountsController } from './../../presentation/controllers/signup/signup';
 import { DbAddAccount } from '../../data/useCases/db-account/db-add-account'

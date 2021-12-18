@@ -96,7 +96,9 @@ export class ListProductsController implements Controller {
     try {
 
       const productsDb = await this.iProductRepository.getAll()
+      
       const DTOProducts = await this.iProduct.getAll(productsDb)
+      
       
       return success(DTOProducts)
     } catch (error) {

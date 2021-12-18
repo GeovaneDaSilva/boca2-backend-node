@@ -1,9 +1,9 @@
-import ProductSchema from '../mongo-schemas/product-schema'
 import CategorySchema from '../mongo-schemas/category-schema'
 
 import { IProductRepository } from '../../../../data/useCases/protocols/repositories/product-repository'
 import { ProductModel } from '../../../../domain/entities/product'
 import { IProductResponse } from '../../../../domain/useCases/product/products'
+import ProductSchema from '../mongo-schemas/product-schema'
 
 
 
@@ -33,13 +33,9 @@ export class ProductMongoRepository implements IProductRepository {
     try {
       const collection: ProductModel | any = await ProductSchema.find({}, props)
       //.populate({path: 'category', model: CategorySchema})
-      const total:number = await ProductSchema.count()
+    
 
-      let products: any = {
-        products: collection,
-        total: total
-      }
-      return products
+      return collection
     } catch (error) {
       console.log(error)
     }
