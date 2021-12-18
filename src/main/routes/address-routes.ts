@@ -5,7 +5,7 @@ import { makeRegisterAddressController, makeUpdateAddressController } from '../f
 import { makeGetItemController, makeGetItemsProductByIdController, makeListItemsController, makeRegisterItemController, makeRemoveItemController, makeUpdateItemController } from '../factories/item'
 
 export default (router: Router): void => {
-  router.post('/address/:group_id', AuthenticationToken.veryfyToken, AuthenticationToken.veryfyToken, AdaptRoute(makeRegisterAddressController()))
+  router.post('/address/:group_id',  AuthenticationToken.veryfyToken, AdaptRoute(makeRegisterAddressController()))
   
   router.put('/address/:address_id', AdaptRoute(makeUpdateAddressController()))
 
