@@ -10,5 +10,5 @@ const GroupSchema = new Schema({
 })
 
 GroupSchema.plugin(uniqueValidator, { message: 'Error, expected {VALUE} to be unique.' })
-
-export default mongoose.model('Group', GroupSchema)
+mongoose.pluralize(null);
+export default mongoose.model('groups', GroupSchema)

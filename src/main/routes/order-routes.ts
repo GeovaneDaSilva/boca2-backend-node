@@ -7,7 +7,7 @@ import  AuthenticationToken  from '../../presentation/middlewares/auth-middlewar
 export default (router: Router): void => {
   router.post('/order/', AuthenticationToken.veryfyToken, AdaptRoute(makeRegisterOrderController()))
   router.get('/orders/:group_id', AuthenticationToken.veryfyToken, AdaptRoute(makeListOrderController()))
-  router.get('/orders', AuthenticationToken.veryfyRole_Admin, AdaptRoute(makeListOrdersController()))
+  router.get('/orders', AdaptRoute(makeListOrdersController()))
 
   //router.put('/address/:address_id', AdaptRoute(makeUpdateAddressController()))
 

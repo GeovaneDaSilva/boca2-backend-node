@@ -10,7 +10,7 @@ export default (router: Router): void => {
   router.get('/account/activated/:token', AuthenticationToken.veryfyToken, AdaptRoute(makeActivatedAccountController())) // confirm account
   router.get('/accounts/activated/:value', AuthenticationToken.veryfyToken, AdaptRoute(makeGetAccountsActivatedsController())) // get accounts
 
-  router.get('/accounts', AuthenticationToken.veryfyRole_Admin, AdaptRoute(makeGetAccountsController()))
+  router.get('/accounts',  AdaptRoute(makeGetAccountsController()))
   router.get('/account/:id', AuthenticationToken.veryfyToken, AdaptRoute(makeGetAccountController()))
   router.delete('/account/:account_id', AuthenticationToken.veryfyToken, AdaptRoute(makeDeleteAccountController()))
 

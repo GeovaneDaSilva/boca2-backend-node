@@ -15,5 +15,5 @@ const CategorySchema = new Schema({
 
 CategorySchema.plugin(uniqueValidator, { message: 'Error, expected {VALUE} to be unique.' })
 
-
-export default mongoose.model('Category', CategorySchema)
+mongoose.pluralize(null);
+export default mongoose.model('categories', CategorySchema)

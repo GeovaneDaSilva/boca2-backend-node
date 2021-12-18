@@ -5,7 +5,7 @@ import { makeGetItemController, makeGetItemsProductByIdController, makeListItems
 
 export default (router: Router): void => {
   router.post('/item/:product_id', AuthenticationToken.veryfyRole_Admin, AdaptRoute(makeRegisterItemController()))
-  router.get('/items/', AuthenticationToken.veryfyToken, AdaptRoute(makeListItemsController()))
+  router.get('/items/', AdaptRoute(makeListItemsController()))
   router.put('/item/:item_id', AuthenticationToken.veryfyRole_Admin, AdaptRoute(makeUpdateItemController()))
   router.get('/item/:item_id', AuthenticationToken.veryfyToken, AdaptRoute(makeGetItemController()))
   router.delete('/item/:item_id', AuthenticationToken.veryfyRole_Admin, AdaptRoute(makeRemoveItemController()))

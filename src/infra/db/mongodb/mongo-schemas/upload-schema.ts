@@ -11,4 +11,6 @@ const UploadSchema = new Schema({
 
 UploadSchema.plugin(uniqueValidator, { message: 'Error, expected {VALUE} to be unique.' })
 
-export default mongoose.model('Upload', UploadSchema)
+mongoose.pluralize(null);
+
+export default mongoose.model('uploads', UploadSchema)

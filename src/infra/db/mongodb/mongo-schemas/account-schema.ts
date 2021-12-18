@@ -18,5 +18,5 @@ const AccountSchema = new Schema({
 })
 
 AccountSchema.plugin(uniqueValidator, { message: 'Error, expected {VALUE} to be unique.' })
-
-export default mongoose.model('Account', AccountSchema)
+mongoose.pluralize(null);
+export default mongoose.model('accounts', AccountSchema)

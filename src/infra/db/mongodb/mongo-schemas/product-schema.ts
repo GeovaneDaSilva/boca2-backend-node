@@ -23,5 +23,5 @@ const ProductSchema = new Schema({
 })
 
 ProductSchema.plugin(uniqueValidator, { message: 'Error, expected {VALUE} to be unique.' })
-
-export default mongoose.model('Product', ProductSchema)
+mongoose.pluralize(null);
+export default mongoose.model('products', ProductSchema)
