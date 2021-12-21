@@ -18,11 +18,12 @@ export class UploadAwsAdapter implements IUploadAws {
         Key: params.key,
         ACL: 'public-read',
       }
-
+      
       const options = { partSize: 10 * 1024 * 1024, queueSize: 1}
 
-      const upload: any = s3.upload(S3params, options).promise()
-      console.log('paramssss', upload)
+      
+      const upload: any = s3.upload(S3params).promise()
+      console.log('set in AWS', upload)
       return upload
     } catch (error) {
       console.log(error)

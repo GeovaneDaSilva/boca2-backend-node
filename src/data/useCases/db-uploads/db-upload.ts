@@ -43,7 +43,7 @@ export class DbListUpload implements ListUploads {
   }
 
   async get (uploads: UploadModel): Promise<IUploadModel> {
-
+    
     return new Promise(resolve => resolve(
       uploads
     ))

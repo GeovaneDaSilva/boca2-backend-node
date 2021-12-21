@@ -47,9 +47,10 @@ export class UploadController implements Controller {
 
         const img = httpRequest.files.img
         
+        
         let nameSplit = img.name.split('.');
         let extensionArchive = nameSplit[nameSplit.length -1];
-        const extensionValids = ['png', 'jpg', 'gif', 'jpeg', 'png', 'JPG', 'webp']
+        const extensionValids = ['png', 'jpg', 'gif', 'jpeg', 'png', 'JPG', 'webp', 'svg']
         
         if( extensionValids.indexOf(extensionArchive) < 0 ){
           return badRequest(new MissingParamError(`Please send a file with the valid extension type: ${extensionValids}`))
@@ -69,7 +70,7 @@ export class UploadController implements Controller {
           const getPathDb: any = await this.iUploadRepository.getOne(path_db)
                
           if(getPathDb) return badRequest(new ReadyExist(img.name))
-
+          
           // await img.mv( path )
 
           let pathOld = './uploads/categories/' + category.Category.image;
@@ -139,7 +140,7 @@ export class UploadController implements Controller {
           name_archive: nameArchive,
           type: type
         }
-
+        
         
         const DTOUpload = await this.addUpload.add(newUpload)
         return success(DTOUpload)
