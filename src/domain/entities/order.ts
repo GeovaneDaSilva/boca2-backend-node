@@ -5,6 +5,7 @@ export class OrderModel {
   products: any
   items?: any
   group_customer: any
+  email_customer?: string
   address: any
   created_at: Date
   payment: boolean

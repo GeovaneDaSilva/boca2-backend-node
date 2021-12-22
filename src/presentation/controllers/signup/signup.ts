@@ -218,7 +218,8 @@ export class GetAccountController implements Controller {
     try {
       
       const id = httpRequest.params.id
-
+      
+      
       const account = await this.iAccountRepository.getById(id)
       if(!account){
         return notFound('No exist Accounts')
