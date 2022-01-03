@@ -1,5 +1,5 @@
 
-import { RegisterAddressController, UpdateAddressController } from '../../presentation/controllers/address/address';
+import { DeleteAddressController, RegisterAddressController, UpdateAddressController } from '../../presentation/controllers/address/address';
 import { GroupMongoRepository } from '../../infra/db/mongodb/group-repository/group';
 import { AddressMongoRepository } from '../../infra/db/mongodb/address-repository/address';
 import { DbAddAddress } from '../../data/useCases/db-address/db-address';
@@ -20,3 +20,9 @@ export const makeUpdateAddressController = (): UpdateAddressController => {
   return updateAddressController
 }
 
+export const makeDeleteAddressController = (): DeleteAddressController => {
+  const addressMongoRepository = new AddressMongoRepository()
+  const dbAddAddress = new DbAddAddress(addressMongoRepository)
+  const deleteAddressController = new DeleteAddressController(dbAddAddress, addressMongoRepository)
+  return deleteAddressController
+}

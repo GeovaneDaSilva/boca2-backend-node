@@ -110,9 +110,33 @@ export class AddressMongoRepository implements IAddressRepository {
   async delete (id: string): Promise<IAddress> {
     try {
 
-      const collectionRemoveGroup: GroupModel | any = await GroupSchema.findByIdAndDelete(id)
+      const collectionRemoveAddress: GroupModel | any = await AddressSchema.findByIdAndDelete(id)
       
-      return  collectionRemoveGroup
+      if(collectionRemoveAddress === null) return 
+      const { _id, city, state, zip, country, pre_default, cord_address, group_customer, created_at } = collectionRemoveAddress
+      const newCollection: any = {
+        id: _id, 
+        group_customer, 
+        city, state, zip, 
+        country, pre_default, 
+        cord_address, 
+        created_at }
+
+
+        const collectionGroup: GroupModel | any = await GroupSchema.findById(collectionRemoveAddress.group_customer)
+  
+        
+      let group = await collectionGroup.address
+    
+      
+      const index = group.indexOf(id);
+      if (index > -1) {
+        group.splice(index, 1);
+      }
+      
+      await GroupSchema.findByIdAndUpdate({_id: collectionRemoveAddress.group_customer}, {$set: {address: group}})
+        
+      return collectionRemoveAddress
       
     } catch (error) {
       console.log(error)

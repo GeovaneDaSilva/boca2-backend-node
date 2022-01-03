@@ -84,3 +84,33 @@ export class UpdateAddressController implements Controller {
   }
 }
 
+export class DeleteAddressController implements Controller {
+  
+  constructor(
+    private readonly iAddAddress: AddAddress, 
+    private readonly iAddressRepository: IAddressRepository){
+
+    this.iAddAddress = iAddAddress
+    this.iAddressRepository = iAddressRepository
+  }
+
+  async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
+    try {
+  
+      const address_id = httpRequest.params.address_id
+      
+      const iAddressDb: any = await this.iAddressRepository.getById(address_id)
+
+
+      if(!iAddressDb) return badRequest(new InvalidParamError(address_id))
+    
+      
+      const DTOAddress = await this.iAddAddress.delete( iAddressDb)
+      
+      return success(DTOAddress)
+    } catch (error) {
+      console.log(error)
+      return serverError(error)
+    }
+  }
+}

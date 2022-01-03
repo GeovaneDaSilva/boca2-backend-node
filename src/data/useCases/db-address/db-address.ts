@@ -40,8 +40,9 @@ export class DbAddAddress implements AddAddress {
 
   async delete (address: AddressModel): Promise<IAddress> {
     
+    const deleteAddress = await this.iAddressRepository.delete(address.id)
     return new Promise(resolve => resolve(
-      address
+      deleteAddress
       
     ))
   }

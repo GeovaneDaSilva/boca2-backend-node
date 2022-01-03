@@ -10,9 +10,7 @@ import { Controller, HttpRequest, HttpResponse } from './invoice-protocols';
 export class RegisterInvoiceController implements Controller {
   
   constructor(private readonly iInvoice: IInvoiceUseCase){
-
     this.iInvoice = iInvoice
-
   }
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {

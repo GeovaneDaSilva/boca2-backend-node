@@ -8,6 +8,8 @@ import { makeRegisterInvoiceController } from '../factories/invoice';
 export default (router: Router): void => {
   router.post('/invoice/', AdaptRoute(makeRegisterInvoiceController()))
 
+  // router.post('/invoice/:invoice_id/:client_phone', AdaptRoute(makeRegisterInvoiceController()))
+
 
   router.get('/orders/:group_id', AuthenticationToken.veryfyToken, AdaptRoute(makeListOrderController()))
   router.get('/orders', AdaptRoute(makeListOrdersController()))
