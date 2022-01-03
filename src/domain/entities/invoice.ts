@@ -1,6 +1,7 @@
 export class InvoiceModel {
+    id?: string
     checkout: any
-    order_number: string
+    order_number: number
     delivery_date: Date
     customer_name: string
     customer_email: string
@@ -17,6 +18,7 @@ export class InvoiceModel {
     cred_card_fee: number
     total: number
     paid: boolean
+    deleted: boolean
     assigned_to: string
     created_at: Date
     updated_at: Date

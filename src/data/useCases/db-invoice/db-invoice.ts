@@ -16,10 +16,26 @@ export class DbInvoice implements IInvoiceUseCase {
     ))
   }
 
-  async get (address: InvoiceModel): Promise<IInvoice> {
+  async get (invoice?: InvoiceModel): Promise<IInvoice> {
     
     return new Promise(resolve => resolve(
-      address
+      invoice
+      
+    ))
+  }
+
+  async delete (invoice: InvoiceModel | any): Promise<IInvoice> {
+    const deleteInvoice = await this.iInvoiceRepository.delete(invoice)
+    return new Promise(resolve => resolve(
+      deleteInvoice
+      
+    ))
+  }
+
+  async select (value: Boolean | any): Promise<IInvoice> {
+    const getInvoice = await this.iInvoiceRepository.select(value)
+    return new Promise(resolve => resolve(
+      getInvoice
       
     ))
   }

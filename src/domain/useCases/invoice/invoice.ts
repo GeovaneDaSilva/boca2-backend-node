@@ -4,7 +4,7 @@ import { OrderModel } from "../../entities/order"
 
 export interface IInvoice {
     _id?: string
-    order_number: string
+    order_number: number
     delivery_date: Date
     customer_name: string
     customer_email: string
@@ -22,6 +22,7 @@ export interface IInvoice {
     total: number
     paid: boolean
     assigned_to: string
+    deleted?: boolean
     created_at?: Date
     updated_at?: Date
   
@@ -31,6 +32,7 @@ export interface IInvoice {
 export interface IInvoiceUseCase {
   add: (data: InvoiceModel) => Promise<IInvoice>
   get: (id?: InvoiceModel) => Promise<IInvoice>
+  select: (value: Boolean) => Promise<IInvoice>
   update?: (id: string, body: InvoiceModel) => Promise<IInvoice>
-  // delete: (id: AddressModel ) => Promise<IAddress>
+  delete: (id: InvoiceModel ) => Promise<IInvoice>
 }

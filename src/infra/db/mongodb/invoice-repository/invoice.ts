@@ -8,17 +8,19 @@ import { IInvoiceRepository } from '../../../../data/useCases/protocols/reposito
 
 
 
-const props = 'id street city state zip country pre_default cord_address group_customer created_at orders '
+const props = 'id street city state zip country pre_default cord_address group_customer created_at orders deleted updated_at'
 
 export class InvoiceMongoRepository implements IInvoiceRepository {
 
   async add (invoiceData: InvoiceModel): Promise<IInvoice> {
     try {      
         
-
+      const count: InvoiceModel | any = await InvoiceSchema.count()
+      invoiceData.order_number = count + 1
+      invoiceData.deleted = false
       const collection: InvoiceModel | any = await InvoiceSchema.create(invoiceData)
-
       
+      collection.created_at = new Date()
 
       await collection.save()
 
@@ -55,8 +57,9 @@ export class InvoiceMongoRepository implements IInvoiceRepository {
   async getById (id: string): Promise<InvoiceModel> {
     try {
       
-        
-      return 
+      const collection: InvoiceModel | any = await InvoiceSchema.findById(id)
+
+      return collection
     } catch (error) {
       console.log(error)
     }
@@ -76,7 +79,14 @@ export class InvoiceMongoRepository implements IInvoiceRepository {
   async delete (id: string): Promise<InvoiceModel> {
     try {
 
-     
+      const collection: InvoiceModel | any = await InvoiceSchema.findById(id)
+      
+      collection.deleted = true
+      collection.updated_at = new Date()
+
+      collection.save()
+
+      return collection
       
       return  
       
@@ -94,16 +104,21 @@ export class InvoiceMongoRepository implements IInvoiceRepository {
     }
   }
 
-  async select (value: any): Promise<InvoiceModel> {
+  async select (value: Boolean): Promise<InvoiceModel> {
     try {
       
-      const collection: IOrder | any = await InvoiceSchema.find({group_customer: value})
-    
-      let orders: any = {
-        orders: collection, 
+      let collection: IInvoice | any = await InvoiceSchema.find({paid: value})
+      
+      let newCollection = collection.filter(invoice => (invoice.deleted) === false)
+      
+      const count = await newCollection.length
+      
+      let invoices: any = {
+        invoices: newCollection,
+        total: count
 
       }
-      return orders
+      return invoices
 
     } catch (error) {
       console.log(error)
