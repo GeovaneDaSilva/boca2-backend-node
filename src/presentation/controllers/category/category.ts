@@ -13,7 +13,7 @@ export class CreateCategoryController implements Controller {
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const { name, description, short_description, activated_dates } = httpRequest.body
+      const { name, description, short_description, package_type, activated_dates } = httpRequest.body
 
       const requiredField = ['name', 'description']
       for (const field of requiredField) {
@@ -34,6 +34,7 @@ export class CreateCategoryController implements Controller {
         description: description,
         activated_dates: activated_dates,
         short_description: short_description,
+        package_type: package_type,
         created_date: new Date()
       }
       
