@@ -7,7 +7,7 @@ import ProductSchema from '../mongo-schemas/product-schema'
 
 
 const props = 'id, name description activated_dates short_description products created_date package_type activated image'
-const props_category = 'id, name description activated_dates products short_description created_date activated image'
+const props_category = 'id, name description activated_dates products short_description package_type created_date activated image'
 
 export class CategoryMongoRepository implements ICategoryRepository {
 
