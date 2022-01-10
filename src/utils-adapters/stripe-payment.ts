@@ -40,6 +40,7 @@ export interface IStripe {
   currency: string;
   source: any;
   description: any;
+  detail?: string
 }
 
 const stripe = new Stripe(stripeSecretKey, {

@@ -85,6 +85,7 @@
     "mongoose-unique-validator": "^2.0.3",
     "mysql2": "^2.2.5",
     "nodemailer": "^6.6.3",
+    "nodemailer-express-handlebars": "^4.0.0",
     "qrcode": "^1.4.4",
     "redis": "^3.1.2",
     "sequelize": "^6.6.2",

@@ -8,7 +8,7 @@ import { IInvoiceRepository } from '../../../../data/useCases/protocols/reposito
 
 
 
-const props = 'id street city state zip country pre_default cord_address group_customer created_at orders deleted updated_at'
+const props = 'id street city state zip country pre_default cord_address group_customer note created_at orders deleted updated_at'
 
 export class InvoiceMongoRepository implements IInvoiceRepository {
 
@@ -68,9 +68,10 @@ export class InvoiceMongoRepository implements IInvoiceRepository {
   async update (id: string, body: any): Promise<InvoiceModel> {
     try {
   
+      const collection: InvoiceModel | any = await InvoiceSchema.findByIdAndUpdate(id, body)
+
         
-        
-        return null
+      return collection
     } catch (error) {
       console.log(error)
     }

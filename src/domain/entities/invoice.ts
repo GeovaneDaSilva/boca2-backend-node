@@ -20,6 +20,7 @@ export class InvoiceModel {
     paid: boolean
     deleted: boolean
     assigned_to: string
+    note?: string
     created_at: Date
     updated_at: Date
 }

@@ -123,3 +123,31 @@ export class GetInvoiceController implements Controller {
     }
   }
 }
+
+
+export class EditInvoiceController implements Controller {
+  
+  constructor(
+    private readonly iInvoice: IInvoiceUseCase,
+    private readonly iInvoiceRepository: IInvoiceRepository){
+    this.iInvoice = iInvoice
+    this.iInvoiceRepository = iInvoiceRepository
+  }
+
+  async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
+    try {
+      
+      const invoice_id = httpRequest.params.invoice_id
+      const getInvoiceDb: any = await this.iInvoiceRepository.getById(invoice_id)
+      if(!getInvoiceDb) return badRequest(new InvalidParamError(`${invoice_id} no exist.`))
+      if(getInvoiceDb.deleted === true) return badRequest(new InvalidParamError(`${invoice_id} no exist.`))
+
+      const DTOInvoiceRequest = await this.iInvoice.update(getInvoiceDb._id, httpRequest.body)
+      
+      return success(DTOInvoiceRequest)
+    } catch (error) {
+      console.log(error)
+      return serverError(error)
+    }
+  }
+}

@@ -8,6 +8,7 @@ export interface IAddress {
     from: IAddress
     subject: string
     body: string
+    template?: any
   }
   
   export interface IMessageResponse {
@@ -16,6 +17,7 @@ export interface IAddress {
     from: IAddress
     subject: string
     body: string
+    template?: any
   }
   export interface IMailProvider {
     sendMail: (message: IMessage) => Promise<void>

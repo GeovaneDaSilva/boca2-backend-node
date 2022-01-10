@@ -22,6 +22,7 @@ export interface IInvoice {
     total: number
     paid: boolean
     assigned_to: string
+    note?: string
     deleted?: boolean
     created_at?: Date
     updated_at?: Date
