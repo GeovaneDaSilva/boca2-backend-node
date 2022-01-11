@@ -8,7 +8,7 @@ import { ProductModel } from '../../../../domain/entities/product'
 
 
 
-const props = 'id tags name items uploads description image activated price details created_at offer_price lb oz text_offer sku product'
+const props = 'id tags name items uploads quantity description image activated price details created_at offer_price lb oz text_offer sku product'
 
 export class ItemMongoRepository implements IItemRepository {
 
@@ -70,6 +70,7 @@ export class ItemMongoRepository implements IItemRepository {
         details,
         created_at,
         offer_price,
+        quantity,
         lb,
         oz,
         text_offer,
@@ -89,6 +90,7 @@ export class ItemMongoRepository implements IItemRepository {
         created_at,
         offer_price,
         lb,
+        quantity,
         oz,
         text_offer,
         sku,
@@ -119,6 +121,7 @@ export class ItemMongoRepository implements IItemRepository {
         details,
         created_at,
         offer_price,
+        quantity,
         lb,
         oz,
         text_offer,
@@ -137,6 +140,7 @@ export class ItemMongoRepository implements IItemRepository {
         details,
         created_at,
         offer_price,
+        quantity,
         lb,
         oz,
         text_offer,
@@ -201,8 +205,8 @@ export class ItemMongoRepository implements IItemRepository {
       const collection: ItemModel | any = await ProductSchema.findById(id, props)
 
       .populate({path: 'items', model: ItemSchema})
-      const { _id, name, description, created_date, items, products, short_description, image, activated_dates } = collection
-      const newCollection: any = { id: _id, name: name,description: description, items: items, products: products, short_description: short_description, image: image, activated_dates: activated_dates, created_date: created_date }
+      const { _id, name, description, created_date, items, quantity, products, short_description, image, activated_dates } = collection
+      const newCollection: any = { id: _id, name: name,description: description, items: items, products: products, quantity: quantity, short_description: short_description, image: image, activated_dates: activated_dates, created_date: created_date }
       
 
 
