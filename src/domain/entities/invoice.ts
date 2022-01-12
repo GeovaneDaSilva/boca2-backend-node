@@ -5,6 +5,7 @@ export class InvoiceModel {
     delivery_date: Date
     customer_name: string
     customer_email: string
+    customer_phone?: string
     order_type: string
     address: any
     serving_time: Date

@@ -7,6 +7,7 @@ const InvoiceSchema = new Schema({
   delivery_date: String,
   customer_name: String,
   customer_email: String,
+  customer_phone: String,
   order_type: String,
   address: Object,
   serving_time: Date,

@@ -8,7 +8,7 @@ import { IInvoiceRepository } from '../../../../data/useCases/protocols/reposito
 
 
 
-const props = 'id street city state zip country pre_default cord_address group_customer note created_at orders deleted updated_at'
+const props = 'id street city state zip country pre_default cord_address group_customer customer_phone note created_at orders deleted updated_at'
 
 export class InvoiceMongoRepository implements IInvoiceRepository {
 
