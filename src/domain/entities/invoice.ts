@@ -3,6 +3,7 @@ export class InvoiceModel {
     checkout: any
     due_date: Date
     order_number: number
+    delivery_location_code: string
     delivery_date: Date
     customer_name: string
     customer_email: string

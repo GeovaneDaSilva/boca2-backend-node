@@ -7,6 +7,7 @@ export interface IInvoice {
     order_number: number
     due_date: Date
     delivery_date: Date
+    delivery_location_code: string
     customer_name: string
     customer_email: string
     customer_phone?: string
