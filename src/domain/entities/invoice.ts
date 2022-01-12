@@ -1,6 +1,7 @@
 export class InvoiceModel {
     id?: string
     checkout: any
+    due_date: Date
     order_number: number
     delivery_date: Date
     customer_name: string

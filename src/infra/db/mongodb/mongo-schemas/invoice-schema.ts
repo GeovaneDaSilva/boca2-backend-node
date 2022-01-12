@@ -4,6 +4,7 @@ import uniqueValidator from 'mongoose-unique-validator'
 const InvoiceSchema = new Schema({
   checkout: Object,
   order_number: {type: Number, unique: true},
+  due_date: Date,
   delivery_date: String,
   customer_name: String,
   customer_email: String,

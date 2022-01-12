@@ -5,6 +5,7 @@ import { OrderModel } from "../../entities/order"
 export interface IInvoice {
     _id?: string
     order_number: number
+    due_date: Date
     delivery_date: Date
     customer_name: string
     customer_email: string
