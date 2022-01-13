@@ -381,8 +381,9 @@ export class DbInvoice implements IInvoiceUseCase {
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                     <tr>
                       <td>
-                        <p>Hi ${insertInvoiceDb.customer_name},</p>
-                        <p>Haga clic en el enlace para ver la factura y completar el pago</p>
+                      <p><b>Invoice: #001${insertInvoiceDb.order_number}</b></p>
+                        <p>Saludos, ${insertInvoiceDb.customer_name},</p>
+                        <p>Su orden fue recibida. Favor hacer click en el enlace para ver su factura y procesar su pago. Una vez el pago sea procesado, su orden será confirmada. </p>
                         <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                           <tbody>
                             <tr>
@@ -398,8 +399,9 @@ export class DbInvoice implements IInvoiceUseCase {
                             </tr>
                           </tbody>
                         </table>
-                        <p>Haga clic en el enlace para ver la factura y completar el pago.</p>
-                        <p>Good luck! Hope it works.</p>
+                        <p>Su orden fue recibida. Favor hacer click en el enlace para ver su factura y procesar su pago. Una vez el pago sea procesado, su orden será confirmada. </p>
+                        <p>Puede efectuar su pago por ATH Móvil a nuestra cuenta de negocios /BOCApr o con tarjeta de crédito a través de este correo electrónico. Aceptamos Amex, Visa y Mastercard.  </p>
+                        <p>Gracias por su patrocinio.</p>
                       </td>
                     </tr>
                   </table>
@@ -415,7 +417,7 @@ export class DbInvoice implements IInvoiceUseCase {
               <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                 <tr>
                   <td class="content-block">
-                    <span class="apple-link">Company BOCA2, #151 C. Labra, Santurce, San Juan 00907</span>
+                    <span class="apple-link">Si tiene alguna pregunta, responda a este correo electrónico o contáctenos a boca2foodspr@gmail.com</span>
                     <br> ¡Simplifícate la vida con BOCA2! A tu gusto, a tu tiempo y a tu estilo. <a href="http://boca2pr.com">Unsubscribe</a>.
                   </td>
                 </tr>
@@ -852,7 +854,8 @@ export class DbInvoice implements IInvoiceUseCase {
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                     <tr>
                       <td>
-                        <p>Hi ${invoice.customer_name},</p>
+                        <b>Invoice:  #00${invoice.order_number},</b>
+                        <p>Saludos,  ${invoice.customer_name},</p>
                         <p>Haga clic en el enlace para ver la factura pagada.</p>
                         <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                           <tbody>
