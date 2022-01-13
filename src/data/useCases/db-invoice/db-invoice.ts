@@ -508,7 +508,7 @@ export class DbInvoice implements IInvoiceUseCase {
         name: '',
         email: process.env.EMAILVERIFIED
       },
-      subject: 'PAGO REGISTRADO CON ÉXITO.',
+      subject: `Order #00${invoiceUpdated.order_number} Confirmed`,
       body: `
       <!doctype html>
 <html>
@@ -861,9 +861,9 @@ export class DbInvoice implements IInvoiceUseCase {
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                     <tr>
                       <td>
-                        <b>Invoice:  #00${invoice.order_number},</b>
-                        <p>Saludos,  ${invoice.customer_name},</p>
-                        <p>Haga clic en el enlace para ver la factura pagada.</p>
+                        <b>ORDER:  #00${invoice.order_number},</b>
+                        <p>Hi,  ${invoice.customer_name},</p>
+                        <p>Thank you for your payment! Your order is confirmed.</p>
                         <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                           <tbody>
                             <tr>
@@ -871,7 +871,11 @@ export class DbInvoice implements IInvoiceUseCase {
                                 <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                   <tbody>
                                     <tr>
-                                      <td> <a href="${process.env.baseUrl}/invoice/client/${invoiceUpdated._id}" target="_blank">Ver Factura</a> </td>
+                                      <td> <a href="${process.env.baseUrl}/invoice/client/${invoiceUpdated._id}" target="_blank">View your order </a> </td>
+                                    </tr>
+                                    <p> or
+                                    <tr>
+                                      <td> <a href="${process.env.baseUrl}" target="_blank">View our store </a> </td>
                                     </tr>
                                   </tbody>
                                 </table>
@@ -879,8 +883,8 @@ export class DbInvoice implements IInvoiceUseCase {
                             </tr>
                           </tbody>
                         </table>
-                        <p>Factura pagada con exito.</p>
-                        <p>Good luck! Hope it works.</p>
+                        <p>Payment Method</p>
+                        <p>${invoice.checkout.payment_method_details.brand} ending with ${invoice.checkout.payment_method_details.last4} - ${invoice.checkout.amount}</p>
                       </td>
                     </tr>
                   </table>
@@ -890,24 +894,6 @@ export class DbInvoice implements IInvoiceUseCase {
             <!-- END MAIN CONTENT AREA -->
             </table>
             <!-- END CENTERED WHITE CONTAINER -->
-
-            <!-- START FOOTER -->
-            <div class="footer">
-              <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td class="content-block">
-                    <span class="apple-link">Company BOCA2, #151 C. Labra, Santurce, San Juan 00907</span>
-                    <br> ¡Simplifícate la vida con BOCA2! A tu gusto, a tu tiempo y a tu estilo. <a href="http://boca2pr.com">Unsubscribe</a>.
-                  </td>
-                </tr>
-                <tr>
-                  <td class="content-block powered-by">
-                    Powered by <a href="http://boca2pr.com">Restaurant</a>.
-                  </td>
-                </tr>
-              </table>
-            </div>
-            <!-- END FOOTER -->
 
           </div>
         </td>
