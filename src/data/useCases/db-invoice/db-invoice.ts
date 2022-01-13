@@ -25,7 +25,7 @@ export class DbInvoice implements IInvoiceUseCase {
         email: insertInvoiceDb.customer_email
       },
       from: {
-        name: `Boca2`,
+        name: `BOCA2`,
         email: process.env.EMAILVERIFIED
       },
       subject: `Your order #000${insertInvoiceDb.order_number} was received.`,
@@ -381,8 +381,8 @@ export class DbInvoice implements IInvoiceUseCase {
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                     <tr>
                       <td>
-                      <p><b>Invoice #001${insertInvoiceDb.order_number}.</b></p>
-                        <p>Hi, ${insertInvoiceDb.customer_name}.</p>
+                      <p><b>Invoice #001${insertInvoiceDb.order_number}</b></p>
+                        <p>Hi ${insertInvoiceDb.customer_name},</p>
                         <p>Your order was received. <br> Please click on the link to view your invoice and complete the payment. Once the payment is processed, your order will be confirmed.</p>
                         <p>You can make your payment by ATH Móvil to our business account /BOCApr or with credit card through this email. We accept Amex, Visa and Mastercard.  </p>
 
@@ -508,10 +508,10 @@ export class DbInvoice implements IInvoiceUseCase {
         email: invoice.customer_email
       },
       from: {
-        name: 'Boca2',
+        name: 'BOCA2',
         email: process.env.EMAILVERIFIED
       },
-      subject: `Order #00${invoiceUpdated.order_number} Confirmed`,
+      subject: `Order #00${invoiceUpdated.order_number} Confirmed.`,
       body: `
       <!doctype html>
 <html>
@@ -864,8 +864,8 @@ export class DbInvoice implements IInvoiceUseCase {
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                     <tr>
                       <td>
-                        <b>ORDER #00${invoiceUpdated.order_number}.</b> <b><br/>
-                        <p>Hi,  ${invoice.customer_name}.</p>
+                        <b>ORDER #00${invoiceUpdated.order_number}</b> <b><br/>
+                        <p>Hi ${invoice.customer_name},</p>
                         <p>Thank you for your payment! Your order is confirmed.</p>
                         <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                           <tbody>
