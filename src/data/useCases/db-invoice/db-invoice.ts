@@ -456,6 +456,7 @@ export class DbInvoice implements IInvoiceUseCase {
 
   async update (id: string, invoice: InvoiceModel ): Promise<IInvoice> {
     
+   
 
     const { checkout } = invoice
 
@@ -468,12 +469,13 @@ export class DbInvoice implements IInvoiceUseCase {
         exp_year:checkout.card.exp_year,
         cvc: checkout.card.cvc, 
   }
-
+ 
     const token: any = await this.iPayment.creatCard(card)
     const payment = await this.iPayment.pay({
-      amount: cost.amount, currency: 'USD', source: token.id, description: `${invoice.customer_email} - ${cost.detail}`
+      amount: invoice.total, currency: 'USD', source: token.id, description: `${invoice.customer_email} - ${cost.detail}`
   })
     
+
     
   const checkoutStripe = {
     id: payment.id,
@@ -485,6 +487,7 @@ export class DbInvoice implements IInvoiceUseCase {
     payment_method_details: payment.payment_method_details.card,
     receipt_url: payment.receipt_url
   }
+  
 
   if(payment.paid !== true && payment.status !== 'succeeded') {
     payment
@@ -498,7 +501,7 @@ export class DbInvoice implements IInvoiceUseCase {
     const invoiceUpdated = await this.iInvoiceRepository.update(id, invoice)
     if(!invoiceUpdated) throw ('Error update invoice')
 
-
+    
     await this.mailProvider.sendMail({
       to: {
         name: invoice.customer_name,
@@ -861,7 +864,7 @@ export class DbInvoice implements IInvoiceUseCase {
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                     <tr>
                       <td>
-                        <b>ORDER:  #00${invoice.order_number},</b>
+                        <b>ORDER:  #00${invoiceUpdated.order_number},</b> <b><br/>
                         <p>Hi,  ${invoice.customer_name},</p>
                         <p>Thank you for your payment! Your order is confirmed.</p>
                         <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
@@ -871,20 +874,21 @@ export class DbInvoice implements IInvoiceUseCase {
                                 <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                   <tbody>
                                     <tr>
-                                      <td> <a href="${process.env.baseUrl}/invoice/client/${invoiceUpdated._id}" target="_blank">View your order </a> </td>
+                                    <td> <a href="${process.env.baseUrl}/invoice/client/${invoiceUpdated._id}" target="_blank">View your order </a> </td>
                                     </tr>
-                                    <p> or
-                                    <tr>
-                                      <td> <a href="${process.env.baseUrl}" target="_blank">View our store </a> </td>
-                                    </tr>
+
                                   </tbody>
+                                  
                                 </table>
                               </td>
                             </tr>
                           </tbody>
                         </table>
+            
+                        <p> or</p>
+                        <p><a href="${process.env.baseUrl}" target="_blank">View our store </a></p>
                         <p>Payment Method</p>
-                        <p>${invoice.checkout.payment_method_details.brand} ending with ${invoice.checkout.payment_method_details.last4} - ${invoice.checkout.amount}</p>
+                        <p>${invoice.checkout.payment_method_details.brand} ending with ${invoice.checkout.payment_method_details.last4} - $${invoice.total}</p>
                       </td>
                     </tr>
                   </table>
@@ -894,6 +898,8 @@ export class DbInvoice implements IInvoiceUseCase {
             <!-- END MAIN CONTENT AREA -->
             </table>
             <!-- END CENTERED WHITE CONTAINER -->
+
+
 
           </div>
         </td>
