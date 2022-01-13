@@ -25,7 +25,7 @@ export class DbInvoice implements IInvoiceUseCase {
         email: insertInvoiceDb.customer_email
       },
       from: {
-        name: 'FACTURA DISPONIBLE',
+        name: `Order #000${insertInvoiceDb.order_number} Confirmed`,
         email: process.env.EMAILVERIFIED
       },
       subject: 'Su factura está disponible para el pago',
@@ -401,7 +401,8 @@ export class DbInvoice implements IInvoiceUseCase {
                             </tr>
                           </tbody>
                         </table>
-                        <p>Thanks for your support. </p>
+                        <p>Thanks for your support, <br>
+                        BOCA2 </p>
                         <p>If you have any questions, reply to this email or contact us at boca2foodspr@gmail.com</p>
                       </td>
                     </tr>
