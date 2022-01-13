@@ -371,48 +371,7 @@ export class DbInvoice implements IInvoiceUseCase {
         <td>&nbsp;</td>
         <td class="container">
           <div class="content">
-
-            <!-- START CENTERED WHITE CONTAINER -->
-            <table role="presentation" class="main">
-
-              <!-- START MAIN CONTENT AREA -->
-              <tr>
-                <td class="wrapper">
-                  <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                    <tr>
-                      <td>
-                      <p><b>Invoice: #001${insertInvoiceDb.order_number}</b></p>
-                        <p>Saludos, ${insertInvoiceDb.customer_name},</p>
-                        <p>Su orden fue recibida. Favor hacer click en el enlace para ver su factura y procesar su pago. Una vez el pago sea procesado, su orden será confirmada. </p>
-                        <p>Puede efectuar su pago por ATH Móvil a nuestra cuenta de negocios /BOCApr o con tarjeta de crédito a través de este correo electrónico. Aceptamos Amex, Visa y Mastercard.  </p>
-
-                        <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
-                          <tbody>
-                            <tr>
-                              <td align="left">
-                                <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                                  <tbody>
-                                    <tr>
-                                      <td> <a href="${process.env.baseUrl}/invoice/client/${insertInvoiceDb._id}" target="_blank">Ver Factura</a> </td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                        <p>Gracias por su patrocinio.</p>
-                      </td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-
-            <!-- END MAIN CONTENT AREA -->
             
-            </table>
-
-
             <!-- START CENTERED WHITE CONTAINER -->
             <table role="presentation" class="main">
 
@@ -424,7 +383,7 @@ export class DbInvoice implements IInvoiceUseCase {
                       <td>
                       <p><b>Invoice: #001${insertInvoiceDb.order_number}</b></p>
                         <p>Hi, ${insertInvoiceDb.customer_name},</p>
-                        <p>Your order was received. Please click on the link to view your invoice and complete the payment. Once the payment is processed, your order will be confirmed.</p>
+                        <p>Your order was received. <br> Please click on the link to view your invoice and complete the payment. Once the payment is processed, your order will be confirmed.</p>
                         <p>You can make your payment by ATH Móvil to our business account /BOCApr or with credit card through this email. We accept Amex, Visa and Mastercard.  </p>
 
                         <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
