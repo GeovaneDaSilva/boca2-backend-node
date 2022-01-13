@@ -28,7 +28,7 @@ export class DbInvoice implements IInvoiceUseCase {
         name: `Order #000${insertInvoiceDb.order_number} Confirmed`,
         email: process.env.EMAILVERIFIED
       },
-      subject: 'Su factura está disponible para el pago',
+      subject: `Your order:${insertInvoiceDb.order_number} was received.`,
       body: `
       <!doctype html>
 <html>
