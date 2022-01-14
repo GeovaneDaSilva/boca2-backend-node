@@ -142,6 +142,9 @@ export class EditInvoiceController implements Controller {
       if(!getInvoiceDb) return badRequest(new InvalidParamError(`${invoice_id} no exist.`))
       if(getInvoiceDb.deleted === true) return badRequest(new InvalidParamError(`${invoice_id} no exist.`))
 
+      if(getInvoiceDb.paid) return badRequest(new InvalidParamError(`${invoice_id} Your invoice has already been paid.`))
+
+
       const DTOInvoiceRequest = await this.iInvoice.update(getInvoiceDb._id, httpRequest.body)
       
       return success(DTOInvoiceRequest)
