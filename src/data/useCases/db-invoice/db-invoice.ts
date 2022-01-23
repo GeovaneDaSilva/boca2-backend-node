@@ -472,7 +472,7 @@ export class DbInvoice implements IInvoiceUseCase {
  
     const token: any = await this.iPayment.creatCard(card)
     const payment = await this.iPayment.pay({
-      amount: invoice.total, currency: 'USD', source: token.id, description: `${invoice.customer_email} - ${invoice.customer_phone}`
+      amount: invoice.total, currency: 'USD', source: token.id, description: `${invoice.customer_email} - ${cost.detail}`
   })
     
 
