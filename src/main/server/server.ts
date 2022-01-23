@@ -1,11 +1,11 @@
 // import ConnectDB from '../../infra/db/mongodb/mongo-connect'
 import { MongooseHelper } from '../../infra/db/mongodb/mongoose-helper/mongoose-helper'
 
-//import { config as dotenv } from 'dotenv'
+// import { config as dotenv } from 'dotenv'
 
-//dotenv()
+// dotenv()
 // dbConnection()
-MongooseHelper.connect(process.env.MONGODB_PROD)
+MongooseHelper.connect(process.env.MONGODB)
   .then(async () => {
     const app = (await import('../../main/config/app')).default
 

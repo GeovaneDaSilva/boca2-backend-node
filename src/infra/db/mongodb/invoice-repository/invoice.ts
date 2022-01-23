@@ -59,7 +59,10 @@ export class InvoiceMongoRepository implements IInvoiceRepository {
       
       const collection: InvoiceModel | any = await InvoiceSchema.findById(id)
 
-      if(collection.paid === true) collection.total = 0
+      if(collection.paid === true) collection.total = 0  
+      collection.checkout.amount = 0
+
+      
 
       return collection
     } catch (error) {
