@@ -386,14 +386,14 @@ export class DbInvoice implements IInvoiceUseCase {
                         <p>Your order was received. <br> Please click on the link to view your invoice and complete the payment. Once the payment is processed, your order will be confirmed.</p>
                         <p>You can make your payment by ATH Móvil to our business account /BOCApr or with credit card through this email. We accept Amex, Visa and Mastercard.  </p>
 
-                        <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+                        <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-danger">
                           <tbody>
                             <tr>
                               <td align="left">
                                 <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                   <tbody>
                                     <tr>
-                                      <td> <a href="${process.env.baseUrl}/invoice/client/${insertInvoiceDb._id}" target="_blank">Ver Factura</a> </td>
+                                      <td> <a href="${process.env.baseUrl}/invoice/client/${insertInvoiceDb._id}" target="_blank">View Invoice</a> </td>
                                     </tr>
                                   </tbody>
                                 </table>
