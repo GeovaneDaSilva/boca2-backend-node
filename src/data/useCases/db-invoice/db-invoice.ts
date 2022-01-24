@@ -888,7 +888,7 @@ export class DbInvoice implements IInvoiceUseCase {
                         <p> or</p>
                         <p><a href="${process.env.baseUrl}" target="_blank">View our store </a></p>
                         <p>Payment Method</p>
-                        <p>${invoice.checkout.payment_method_details.brand} ending with ${invoice.checkout.payment_method_details.last4} - $${invoice.total}</p>
+                        <p>Visa ending with ${invoice.checkout.payment_method_details.last4} - $${invoice.total}</p>
                       </td>
                     </tr>
                   </table>
