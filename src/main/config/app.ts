@@ -4,11 +4,8 @@ import setupSwagger from './config-swagger'
 import middlewares from './middlewares'
 import routes from './routes'
 
-import cors from 'cors'
 
 const app = express()
-
-app.use(cors())
 
 
 setupSwagger(app)

@@ -456,7 +456,6 @@ export class DbInvoice implements IInvoiceUseCase {
 
   async update (id: string, invoice: InvoiceModel ): Promise<IInvoice> {
     
-   
 
     const { checkout } = invoice
 
