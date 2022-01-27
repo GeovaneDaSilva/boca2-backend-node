@@ -460,6 +460,18 @@ export class DbInvoice implements IInvoiceUseCase {
     const { checkout } = invoice
 
     let cost: IStripe = checkout
+    
+
+
+    const resultAmount = Number(cost.amount.toFixed(2))  * 100
+
+
+    const marth = Math.trunc(Number(resultAmount.toFixed(2)))
+
+
+    
+    
+    console.log('result marth', marth)
 
     let card: any = {card: {}};
       card.card = {
@@ -470,11 +482,13 @@ export class DbInvoice implements IInvoiceUseCase {
   }
  
     const token: any = await this.iPayment.creatCard(card)
-    const payment = await this.iPayment.pay({
-      amount: invoice.total, currency: 'USD', source: token.id, description: `${invoice.customer_email} - ${invoice.customer_phone}`
-  })
     
+    const payment = await this.iPayment.pay({
+      amount: marth, currency: 'USD', source: token.id, description: `${invoice.customer_email} - ${invoice.customer_phone}`
+  })
 
+
+  console.log('Stripe',cost.amount)
     
   const checkoutStripe = {
     id: payment.id,
@@ -487,7 +501,8 @@ export class DbInvoice implements IInvoiceUseCase {
     receipt_url: payment.receipt_url
   }
   
-
+    
+  
   if(payment.paid !== true && payment.status !== 'succeeded') {
     payment
     
@@ -496,6 +511,7 @@ export class DbInvoice implements IInvoiceUseCase {
     invoice.checkout = checkoutStripe
     invoice.paid = true
     invoice.updated_at = new Date()
+    invoice.total = cost.amount
 
     const invoiceUpdated = await this.iInvoiceRepository.update(id, invoice)
     if(!invoiceUpdated) throw ('Error update invoice')
