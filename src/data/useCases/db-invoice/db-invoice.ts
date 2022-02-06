@@ -455,7 +455,14 @@ export class DbInvoice implements IInvoiceUseCase {
   }
 
   async update (id: string, invoice: InvoiceModel ): Promise<IInvoice> {
-    
+
+
+    if(invoice.checkout === null || undefined) {
+      const invoiceUpdated = await this.iInvoiceRepository.update(id, invoice)
+      return new Promise(resolve => resolve(
+        invoiceUpdated
+      ))
+    } 
 
     const { checkout } = invoice
 
