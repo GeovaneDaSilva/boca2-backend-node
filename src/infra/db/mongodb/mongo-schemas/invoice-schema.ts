@@ -24,6 +24,7 @@ const InvoiceSchema = new Schema({
   total: Number,
   assigned_to: String,
   paid: Boolean,
+  type_payment: String,
   deleted: Boolean,
   note: String,
   created_at: Date,
