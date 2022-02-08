@@ -458,11 +458,19 @@ export class DbInvoice implements IInvoiceUseCase {
 
 
     if(invoice.checkout === null || undefined) {
+      console.log(invoice.type_payment)
+      if(invoice.type_payment !== null || undefined) {
+        invoice.paid = true
+      }
+
+
       const invoiceUpdated = await this.iInvoiceRepository.update(id, invoice)
       return new Promise(resolve => resolve(
         invoiceUpdated
       ))
     } 
+
+
 
     const { checkout } = invoice
 
