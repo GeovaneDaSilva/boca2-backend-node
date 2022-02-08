@@ -386,14 +386,14 @@ export class DbInvoice implements IInvoiceUseCase {
                         <p>Your order was received. <br> Please click on the link to view your invoice and complete the payment. Once the payment is processed, your order will be confirmed.</p>
                         <p>You can make your payment by ATH Móvil to our business account /BOCApr or with credit card through this email. We accept Amex, Visa and Mastercard.  </p>
 
-                        <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+                        <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-danger">
                           <tbody>
                             <tr>
                               <td align="left">
                                 <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                   <tbody>
                                     <tr>
-                                      <td> <a href="${process.env.baseUrl}/invoice/client/${insertInvoiceDb._id}" target="_blank">Ver Factura</a> </td>
+                                      <td> <a href="${process.env.baseUrl}/invoice/client/${insertInvoiceDb._id}" target="_blank">View Invoice</a> </td>
                                     </tr>
                                   </tbody>
                                 </table>
@@ -455,12 +455,38 @@ export class DbInvoice implements IInvoiceUseCase {
   }
 
   async update (id: string, invoice: InvoiceModel ): Promise<IInvoice> {
-    
-   
+
+
+    if(invoice.checkout === null || undefined) {
+      console.log(invoice.type_payment)
+      if(invoice.type_payment !== null || undefined) {
+        invoice.paid = true
+      }
+
+
+      const invoiceUpdated = await this.iInvoiceRepository.update(id, invoice)
+      return new Promise(resolve => resolve(
+        invoiceUpdated
+      ))
+    } 
+
+
 
     const { checkout } = invoice
 
     let cost: IStripe = checkout
+    
+
+
+    const resultAmount = Number(cost.amount.toFixed(2))  * 100
+
+
+    const marth = Math.trunc(Number(resultAmount.toFixed(2)))
+
+
+    
+    
+    console.log('result marth', marth)
 
     let card: any = {card: {}};
       card.card = {
@@ -471,11 +497,13 @@ export class DbInvoice implements IInvoiceUseCase {
   }
  
     const token: any = await this.iPayment.creatCard(card)
-    const payment = await this.iPayment.pay({
-      amount: invoice.total, currency: 'USD', source: token.id, description: `${invoice.customer_email} - ${cost.detail}`
-  })
     
+    const payment = await this.iPayment.pay({
+      amount: marth, currency: 'USD', source: token.id, description: `${invoice.customer_email} - ${invoice.customer_phone}`
+  })
 
+
+  console.log('Stripe',cost.amount)
     
   const checkoutStripe = {
     id: payment.id,
@@ -488,7 +516,8 @@ export class DbInvoice implements IInvoiceUseCase {
     receipt_url: payment.receipt_url
   }
   
-
+    
+  
   if(payment.paid !== true && payment.status !== 'succeeded') {
     payment
     
@@ -497,6 +526,7 @@ export class DbInvoice implements IInvoiceUseCase {
     invoice.checkout = checkoutStripe
     invoice.paid = true
     invoice.updated_at = new Date()
+    invoice.total = cost.amount
 
     const invoiceUpdated = await this.iInvoiceRepository.update(id, invoice)
     if(!invoiceUpdated) throw ('Error update invoice')
@@ -888,7 +918,7 @@ export class DbInvoice implements IInvoiceUseCase {
                         <p> or</p>
                         <p><a href="${process.env.baseUrl}" target="_blank">View our store </a></p>
                         <p>Payment Method</p>
-                        <p>${invoice.checkout.payment_method_details.brand} ending with ${invoice.checkout.payment_method_details.last4} - $${invoice.total}</p>
+                        <p>Visa ending with ${invoice.checkout.payment_method_details.last4} - $${invoice.total}</p>
                       </td>
                     </tr>
                   </table>

@@ -5,7 +5,7 @@ import { MongooseHelper } from '../../infra/db/mongodb/mongoose-helper/mongoose-
 
 //dotenv()
 // dbConnection()
-MongooseHelper.connect(process.env.MONGODB)
+MongooseHelper.connect(process.env.MONGODB_PROD)
   .then(async () => {
     const app = (await import('../../main/config/app')).default
 

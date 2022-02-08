@@ -70,7 +70,7 @@ export class StripePayment implements IPayment {
 
   async pay(body: IStripe): Promise<IStripe> {
     const charge = await stripe.charges.create({
-      amount: body.amount * 100,
+      amount: body.amount,
       currency: body.currency,
       source: body.source,
       description: body.description,

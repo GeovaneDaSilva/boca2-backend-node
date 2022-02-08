@@ -41,7 +41,7 @@ export class LoginController implements Controller {
       }
       const passwordDcrypt = await this.dcryptgraphy.dencrypt(user.password, account.password)
       if (passwordDcrypt === false) {
-        return unauthorized(new Error('Unauthorized'))
+        return badRequest(new InvalidParamError('password'))
       }
       if (!passwordDcrypt) {
         throw Error('Error in dcrypt')

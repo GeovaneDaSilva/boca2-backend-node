@@ -4,6 +4,7 @@ import { NoReadyExist } from '../../errors/ready-exist-error';
 import { InvalidParamError, MissingParamError } from "../../errors"
 import { badRequest, serverError, success } from "../../helpers/http-helper"
 import { Controller, HttpRequest, HttpResponse } from './invoice-protocols';
+import { ErrorMessage } from '../../errors/errorMessage';
 
 
 
@@ -30,6 +31,8 @@ export class RegisterInvoiceController implements Controller {
       
 
       const DTOInvoiceRequest = await this.iInvoice.add(body)
+
+
       
 
       return success(DTOInvoiceRequest)
@@ -149,8 +152,9 @@ export class EditInvoiceController implements Controller {
       
       return success(DTOInvoiceRequest)
     } catch (error) {
+      if(error.raw.message) return badRequest(new ErrorMessage(error.raw.message))
       console.log(error)
-      return serverError(error)
+        return serverError(error)
     }
   }
 }
