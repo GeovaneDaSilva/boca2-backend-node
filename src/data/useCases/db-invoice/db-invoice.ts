@@ -525,6 +525,7 @@ export class DbInvoice implements IInvoiceUseCase {
 
     invoice.checkout = checkoutStripe
     invoice.paid = true
+    invoice.type_payment = 'Stripe'
     invoice.updated_at = new Date()
     invoice.total = cost.amount
 
