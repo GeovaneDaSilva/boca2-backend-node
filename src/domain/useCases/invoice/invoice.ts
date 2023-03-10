@@ -39,4 +39,5 @@ export interface IInvoiceUseCase {
   select: (value: Boolean) => Promise<IInvoice>
   update?: (id: string, body: InvoiceModel) => Promise<IInvoice>
   delete: (id: InvoiceModel ) => Promise<IInvoice>
+  send?: (id?: InvoiceModel ) => Promise<IInvoice>
 }

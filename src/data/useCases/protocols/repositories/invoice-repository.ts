@@ -13,6 +13,7 @@ export interface IInvoiceRepository {
   update: (id: string, body: any) => Promise<IInvoice>
   count: (value?: any) => Promise<IInvoice>
   select: (value?: any) => Promise<IInvoice>
+  send?: (id?: string) => Promise<IInvoice>
 
 
 }
