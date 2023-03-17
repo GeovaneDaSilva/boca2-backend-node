@@ -15,6 +15,7 @@ export class CreateCategoryController implements Controller {
     try {
       const { name, description, short_description, package_type, activated_dates } = httpRequest.body
 
+
       const requiredField = ['name', 'description']
       for (const field of requiredField) {
         if (!httpRequest.body[field]) {
@@ -37,6 +38,9 @@ export class CreateCategoryController implements Controller {
         package_type: package_type,
         created_date: new Date()
       }
+
+
+
       
 
       const DTOCatregory = await this.addCategory.add(request)
