@@ -13,9 +13,9 @@ export class CreateCategoryController implements Controller {
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const { name, description, short_description, package_type, activated_dates } = httpRequest.body
+      const { name, description, short_description, package_type, icon, activated_dates } = httpRequest.body
 
-      const requiredField = ['name', 'description']
+      const requiredField = ['name', 'description', 'icon']
       for (const field of requiredField) {
         if (!httpRequest.body[field]) {
           return badRequest(new MissingParamError(field))
@@ -35,6 +35,7 @@ export class CreateCategoryController implements Controller {
         activated_dates: activated_dates,
         short_description: short_description,
         package_type: package_type,
+        icon: icon,
         created_date: new Date()
       }
       

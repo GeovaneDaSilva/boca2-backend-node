@@ -5,7 +5,7 @@ import { config as dotenv } from 'dotenv'
 
 dotenv()
 // dbConnection()
-MongooseHelper.connect(process.env.MONGODB_PROD)
+MongooseHelper.connect(process.env.MONGODB)
   .then(async () => {
     const app = (await import('../../main/config/app')).default
 

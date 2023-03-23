@@ -17,5 +17,6 @@ export class ProductModel {
     sku: string
     category?: any
     items?: any
+    image_offer?: string
     uploads?: any
 }

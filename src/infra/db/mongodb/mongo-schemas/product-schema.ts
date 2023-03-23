@@ -19,6 +19,7 @@ const ProductSchema = new Schema({
   sku: String,
   category: { type: Schema.Types.ObjectId },
   items:[{ type: Schema.Types.ObjectId, ref:'Items'}],
+  image_offer: String,
   uploads: Array,
 })
 

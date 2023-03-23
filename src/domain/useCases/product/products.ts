@@ -21,6 +21,7 @@ export interface IProductResponse {
     sku: string
     items?: any
     uploads?: any
+    image_offer?: string
     product?: any
 }
 

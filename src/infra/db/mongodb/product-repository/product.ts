@@ -7,7 +7,7 @@ import { IProductResponse } from '../../../../domain/useCases/product/products'
 
 
 
-const props = 'id tags name items uploads description image activated price details created_at offer_price lb oz text_offer sku category quantity'
+const props = 'id tags name items uploads description image activated price details created_at offer_price lb oz text_offer sku category quantity image_offer'
 
 export class ProductMongoRepository implements IProductRepository {
 
@@ -76,6 +76,7 @@ export class ProductMongoRepository implements IProductRepository {
         text_offer,
         sku,
         quantity,
+        image_offer,
         category } = collection
 
         const newCollection: any = { 
@@ -96,6 +97,7 @@ export class ProductMongoRepository implements IProductRepository {
         text_offer,
         sku,
         quantity,
+        image_offer,
         category}
 
         let product: any = {
@@ -127,6 +129,7 @@ export class ProductMongoRepository implements IProductRepository {
         oz,
         text_offer,
         sku,
+        image_offer,
         category } = collection
       const newCollection: any = { 
         id: _id,  
@@ -145,6 +148,7 @@ export class ProductMongoRepository implements IProductRepository {
         oz,
         text_offer,
         sku,
+        image_offer,
         category}
 
         let product: any = {

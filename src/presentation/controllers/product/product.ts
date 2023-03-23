@@ -53,6 +53,7 @@ export class RegisterProductController implements Controller {
             category,
             items,
             sku,
+            image_offer,
             uploads } = httpRequest.body
               
       
@@ -69,6 +70,7 @@ export class RegisterProductController implements Controller {
             tags,
             activated: activated || true,
             quantity,
+            image_offer,
             created_at: new Date(),
             activated_at,
             sku,
